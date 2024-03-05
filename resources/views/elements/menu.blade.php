@@ -14,7 +14,7 @@
     </li>
     <li class="menu-item {{ request()->is('admin/types') ? 'active' : '' }}">
         <a href="{{ route('types.index') }}" class="menu-link">
-            <i class="menu-icon tf-icons bx bxs-bank"></i>
+            <i class="menu-icon tf-icons bx bx-cube-alt"></i>
             <div data-i18n="Analytics">Maxsulot Turi</div>
         </a>
     </li>

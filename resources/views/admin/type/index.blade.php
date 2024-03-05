@@ -75,10 +75,10 @@
                     </div>
                     <div class="modal-body">
                         <p>Siz rostdan ham ushbu elementni o'chirasizmi!</p>
-                        <input type="hidden" id="branchId" >
+                        <input type="hidden" id="branchId" name="id" >
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-danger">Tasdiqlash</button>
+                        <button type="submit" class="btn btn-danger" id="submit_remove">Tasdiqlash</button>
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                             Bekor Qilish
                         </button>
@@ -93,8 +93,9 @@
         $(document).ready(function(){
             $('.btnDelete').on('click', function (e){
                 e.preventDefault();
-               elemtID = $(this).data('id');
-               $("#confirmForm").attr('action', 'branchs/'+elemtID);
+                elemtID = $(this).data('id');
+                // $("#branchId").val(elemtID);
+               $("#confirmForm").attr('action', 'types/'+elemtID);
             })
         });
     </script>

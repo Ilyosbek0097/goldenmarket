@@ -38,14 +38,6 @@
 @endsection
 @section('script')
     <script>
-        const image_input = document.querySelector("#image");
-        image_input.addEventListener("change", function() {
-            const reader = new FileReader();
-            reader.addEventListener("load", () => {
-                const uploaded_image = reader.result;
-                document.querySelector("#product_image_blok").style.backgroundImage = `url(${uploaded_image})`;
-            });
-            reader.readAsDataURL(this.files[0]);
-        });
+
     </script>
 @endsection

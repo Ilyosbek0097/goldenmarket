@@ -26,14 +26,14 @@ class TypeUpdateRequest extends FormRequest
         ];
     }
 
-    public function attributes(): array
+    public function attributes()
     {
         return [
             'type_name' => 'Maxsulot Turi',
         ];
     }
 
-    public function messages(): array
+    public function messages()
     {
         return [
             'type_name.required' => "Maxsulot Turi Maydonini To'ldiring",

@@ -6,6 +6,7 @@ use App\Models\Type;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\TypeStoreRequest;
+use App\Http\Requests\TypeUpdateRequest;
 use App\Repositories\Interfaces\TypeRepositoryInterfaces;
 
 class TypeController extends Controller
@@ -87,16 +88,73 @@ class TypeController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(TypeUpdateRequest $request, $id)
     {
+        DB::beginTransaction();
+
+        $result = [
+            'status' => 200
+        ];
+
+        try{
+
+            $this->typeRepository->update($request, $id);
+
+            DB::commit();
+        }
+        catch(\Exception $e){
+
+            DB::rollBack();
+
+            return $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        if($result['status'] == 200)
+        {
+            return redirect()->route('types.index')->with('success', "Ma'lumotlar Muvaffaqiyatli O'zgartirildi!");
+        }
+        else{
+            return redirect()->route('types.index')->with('error',"Xatolik Sodir Bo'ldi!");
+        }
 
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Type $type)
+    public function destroy($id)
     {
-        //
+        DB::beginTransaction();
+
+        $result = [
+            'status' => 200
+        ];
+
+        try{
+
+            $this->typeRepository->delete($id);
+
+            DB::commit();
+        }
+        catch(\Exception $e){
+            DB::rollBack();
+
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        if($result['status'] == 200)
+        {
+            return redirect()->route('types.index')->with('success', "Ma'lumotlar Muvaffaqiyatli O'chirildi!");
+        }
+        else{
+
+            return redirect()->route('types.index')->with('error', $result['error']);
+        }
     }
 }

@@ -28,12 +28,17 @@ class TypeRepository implements TypeRepositoryInterfaces
         $requestData = $data->all();
         return $this->type->create($requestData);
     }
-    public function update($id, array $data)
+    public function update($data, $id)
     {
-
+        $type = $this->type->findOrFail($id);
+        $type->update($data->except('_token', '_method'));
+        return $type;
     }
     public function delete($id)
     {
-
+        if( !empty($id) )
+        {
+            return $this->type->destroy($id);
+        }
     }
 }

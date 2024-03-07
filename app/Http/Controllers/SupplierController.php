@@ -3,10 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Supplier;
+use App\Repositories\Interfaces\SupplierRepositoryInterfaces;
+use App\Repositories\SupplierRepository;
 use Illuminate\Http\Request;
 
 class SupplierController extends Controller
 {
+    protected SupplierRepositoryInterfaces $supplierRepository;
+
+    public function __construct(SupplierRepository $supplierRepository)
+    {
+        $this->supplierRepository = $supplierRepository;
+    }
+
     /**
      * Display a listing of the resource.
      */

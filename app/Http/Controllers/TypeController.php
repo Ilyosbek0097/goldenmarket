@@ -127,6 +127,7 @@ class TypeController extends Controller
      */
     public function destroy($id)
     {
+
         DB::beginTransaction();
 
         $result = [
@@ -135,9 +136,19 @@ class TypeController extends Controller
 
         try{
 
-            $this->typeRepository->delete($id);
+            $deleteStatus = $this->typeRepository->delete($id);
+//            return $deleteStatus;
+            if($deleteStatus)
+            {
+                DB::commit();
+            }
+            else{
+                $result = [
+                    'status' => 500,
+                    'error' => "Bu Tip Brend Jadvalida Bor Uni O'chirib Bo'lmaydi!"
+                ];
+            }
 
-            DB::commit();
         }
         catch(\Exception $e){
             DB::rollBack();

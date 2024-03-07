@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('types', function (Blueprint $table) {
             $table->id('type_id');
-            $table->string('type_name');
+            $table->string('type_name')->unique();
             $table->timestamps();
         });
     }

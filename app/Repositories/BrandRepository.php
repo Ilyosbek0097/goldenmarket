@@ -36,12 +36,16 @@ class BrandRepository implements BrandRepositoryInterfaces
      */
     public function update($data, $id)
     {
-       $requestAll = $data->all();
-       return $this->brand->find($id)->update($requestAll);
+       return $this->brand->find($id)->update($data->all());
     }
 
     public function delete($id)
     {
-        // TODO: Implement delete() method.
+        if(!empty($id))
+        {
+            return $this->brand->destroy($id);
+        }
+
+
     }
 }

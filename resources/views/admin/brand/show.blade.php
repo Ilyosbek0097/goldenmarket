@@ -18,7 +18,7 @@
                                                 <tbody class="table-border-bottom-0">
                                                 <tr>
                                                     <th class="text-dark">Tur Nomi</th>
-                                                    <td>{{ $brandOne->types->type_name }}</td>
+                                                    <td>{{ $brandOne->getType($brandOne->type_id)->type_name }}</td>
                                                 </tr>
                                                     <tr>
                                                         <th class="text-dark">Brend Nomi</th>

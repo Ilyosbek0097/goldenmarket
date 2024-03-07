@@ -16,8 +16,5 @@ class Type extends Model
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function brends(): HasMany
-    {
-        return $this->hasMany(Brand::class, 'brand_id', 'type_id');
-    }
+
 }

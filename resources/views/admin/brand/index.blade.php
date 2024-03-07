@@ -39,10 +39,11 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody class="table-border-bottom-0">
+
                                                 @foreach($brandAll as $brand)
                                                     <tr>
                                                         <td><strong>{{ $loop->iteration }}</strong></td>
-                                                        <td>{{ $brand->types->type_name }}</td>
+                                                        <td>{{ $brand->getType($brand->type_id)->type_name ?? '-' }}</td>
                                                         <td>{{ $brand->brand_name }}</td>
                                                         <td>
                                                             <a class="btn btn-success btn-sm" href="{{ route('brands.show',$brand->brand_id ) }}"><i class="bx bx-show me-1"></i> Ko'rish</a>
@@ -97,7 +98,7 @@
                 e.preventDefault();
                 elemtID = $(this).data('id');
                 // $("#branchId").val(elemtID);
-               $("#confirmForm").attr('action', 'types/delete/'+elemtID);
+               $("#confirmForm").attr('action', 'brands/'+elemtID);
             })
         });
     </script>

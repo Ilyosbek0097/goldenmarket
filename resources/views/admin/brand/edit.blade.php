@@ -22,13 +22,8 @@
                                 <label class="form-label" for="type_id">Maxsulot Tipi</label>
                                 <select name="type_id" id="type_id" class="form-control">
                                     @foreach($typeAll as $type)
-                                        @if($type->type_id == $brand->type_id)
-                                            <option value="{{ $brand->types->type_id }}">{{ $brand->types->type_name }}</option>
-                                        @else
-                                            <option value="{{ $type->type_id }}">{{ $type->type_name }}</option>
-                                        @endif
-                                    @endforeach
-                                    <option value="{{ $brand->types->type_id }}">{{ $brand->types->type_name }}</option>
+                                            <option   class="@if($type->type_id == $brand->type_id) text-success @endif" value="{{ $type->type_id }}">{{ $type->type_name }}</option>
+                                     @endforeach
                                 </select>
                             </div>
                             <div class="mb-3">

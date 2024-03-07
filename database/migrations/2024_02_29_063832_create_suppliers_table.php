@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('phone1');
             $table->string('phone2')->nullable();
             $table->string('address');
-            $table->string('code');
+            $table->string('code')->unique();
             $table->string('pasport_image');
             $table->bigInteger('user_id');
             $table->timestamps();

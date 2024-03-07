@@ -95,7 +95,7 @@
                 e.preventDefault();
                 elemtID = $(this).data('id');
                 // $("#branchId").val(elemtID);
-               $("#confirmForm").attr('action', 'types/delete/'+elemtID);
+               $("#confirmForm").attr('action', 'types/'+elemtID);
             })
         });
     </script>

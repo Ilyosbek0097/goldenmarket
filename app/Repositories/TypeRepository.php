@@ -1,6 +1,7 @@
 <?php
 namespace App\Repositories;
 
+use App\Models\Brand;
 use App\Models\Type;
 use App\Repositories\Interfaces\TypeRepositoryInterfaces;
 
@@ -38,7 +39,16 @@ class TypeRepository implements TypeRepositoryInterfaces
     {
         if( !empty($id) )
         {
-            return $this->type->destroy($id);
+            $findType = Brand::where('type_id', '=',  $id)->first();
+//            return $findType;
+            if(!$findType)
+            {
+                return $this->type->destroy($id);
+            }
+            else{
+                return false;
+            }
+
         }
     }
 }

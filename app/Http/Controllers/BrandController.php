@@ -97,6 +97,7 @@ class BrandController extends Controller
      */
     public function update(BrandUpdateRequest $request, $id)
     {
+//        return $request;
         DB::beginTransaction();
         $result = [
             'status' => 200,
@@ -127,8 +128,33 @@ class BrandController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Brand $brand)
+    public function destroy($id)
     {
-        //
+        DB::beginTransaction();
+        $result = [
+            'status' => 200
+        ];
+
+        try {
+
+            $this->brandRepository->delete($id);
+            DB::commit();
+        }
+        catch (\Exception $e)
+        {
+            DB::rollBack();
+            $result = [
+                'status' => 500,
+                'error' => $e->getMessage()
+            ];
+        }
+
+        if($result['status'] == 200)
+        {
+            return redirect()->route('brands.index')->with('success', "Ma'lumotlar Muvaffaqiyatli O'chirildi!");
+        }
+        else{
+            return redirect()->route('brands.index')->with('error', "Xatolik Sodir Bo'ldi!");
+        }
     }
 }

@@ -53,7 +53,7 @@ class TeacherRepository implements TeacherRepositoryInterfaces
         }
         else{
             //Image Old
-            return  $this->teacher->findOrFail($id)->update($data->except('image','_token','_method'));
+            return  $this->teacher->whereId($id)->update($data->except('image','_token','_method'));
         }
     }
     public function delete($id)

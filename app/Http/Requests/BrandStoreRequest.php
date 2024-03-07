@@ -22,22 +22,24 @@ class BrandStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'type_name' => 'required|unique:type_name'
+            'brand_name' => 'required',
+            'type_id' => 'required'
         ];
     }
 
     public function attributes()
     {
         return [
-            'type_name' => 'Maxsulot Turi'
+            'brand_name' => 'Maxsulot Brendi',
+            'type_id' => 'Maxsulot Turi'
         ];
     }
 
-    public function message()
+    public function messages()
     {
         return [
-            'type_name.required' => "Maxsulot Turi Maydonini To'ldiring",
-            'type_name.unique' => 'Maxsulot Turi Maydonidagi Qiymat Avval Kiritilgan',
+            'brand_name.required' => "Maxsulot Brendi Maydonini To'ldiring",
+            'type_id.required' => "Maxsulot Turi Maydonini To'ldiring",
         ];
     }
 

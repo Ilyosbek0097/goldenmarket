@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Repositories\BrandRepository;
+use App\Repositories\Interfaces\BrandRepositoryInterfaces;
 use App\Repositories\TypeRepository;
 use App\Repositories\BranchRepository;
 use App\Repositories\StudentRepository;
@@ -24,6 +26,7 @@ class RepositoryProvider extends ServiceProvider
        $this->app->bind(StudentRepositoryInterfaces::class, StudentRepository::class);
 
        $this->app->bind(TypeRepositoryInterfaces::class, TypeRepository::class);
+       $this->app->bind(BrandRepositoryInterfaces::class, BrandRepository::class);
     }
 
     /**

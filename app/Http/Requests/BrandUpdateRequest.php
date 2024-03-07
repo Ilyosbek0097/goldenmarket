@@ -11,7 +11,7 @@ class BrandUpdateRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,27 @@ class BrandUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'brand_name' => 'required',
+            'type_id' => 'required'
+        ];
+    }
+
+    /**
+     * @return string[]
+     */
+    public function attributes()
+    {
+        return [
+            'brand_name' => 'Maxsulot Brendi',
+            'type_id' => 'Maxsulot Turi'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'brand_name.required' => "Maxsulot Brendi Maydonini To'ldiring",
+            'type_id.required' => "Maxsulot Turi Maydonini To'ldiring",
         ];
     }
 }

@@ -18,6 +18,12 @@
             <div data-i18n="Analytics">Maxsulot Turi</div>
         </a>
     </li>
+    <li class="menu-item {{ request()->is('admin/brands') ? 'active' : '' }}">
+        <a href="{{ route('brands.index') }}" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-collection"></i>
+            <div data-i18n="Analytics">Maxsulot Brendi</div>
+        </a>
+    </li>
     <li class="menu-item {{ request()->is('admin/teachers') ? 'active' : '' }}">
         <a href="{{ route('teachers.index') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bxs-group"></i>

@@ -14,7 +14,7 @@ class BrandRepository implements BrandRepositoryInterfaces
 
     public function all()
     {
-        return $this->brand->cursorPaginate(10);
+        return $this->brand->paginate(10);
 
     }
 

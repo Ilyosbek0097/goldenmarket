@@ -1,33 +1,44 @@
 <?php
 namespace App\Repositories;
 
+use App\Models\Supplier;
 use App\Repositories\Interfaces\SupplierRepositoryInterfaces;
+use Illuminate\Support\Facades\Auth;
 
 class SupplierRepository implements SupplierRepositoryInterfaces
 {
+    protected Supplier $supplier;
+
+    public function __construct(Supplier $supplier)
+    {
+        $this->supplier = $supplier;
+    }
 
     public function all()
     {
-        // TODO: Implement all() method.
+        return $this->supplier->paginate(10);
     }
 
     public function get($id)
     {
-        // TODO: Implement get() method.
+       return $this->supplier->findOrFail($id);
     }
 
     public function store($data)
     {
-        // TODO: Implement store() method.
+        $requestAll = ['user_id' => Auth::user()->id];
+        $requestAll= array_merge($requestAll,$data->all());
+//        return $requestAll;
+       return $this->supplier->create($requestAll);
     }
 
     public function update($data, $id)
     {
-        // TODO: Implement update() method.
+      return $this->supplier->find($id)->update($data->all());
     }
 
     public function delete($id)
     {
-        // TODO: Implement delete() method.
+        return $this->supplier->destroy($id);
     }
 }

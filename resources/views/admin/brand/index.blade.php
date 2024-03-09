@@ -40,9 +40,9 @@
                                                 </thead>
                                                 <tbody class="table-border-bottom-0">
 
-                                                @foreach($brandAll as $brand)
+                                                @foreach($brandAll as $index => $brand)
                                                     <tr>
-                                                        <td><strong>{{ $loop->iteration }}</strong></td>
+                                                        <td><strong>{{ $index + $brandAll->firstItem() }}</strong></td>
                                                         <td>{{ $brand->getType($brand->type_id)->type_name ?? '-' }}</td>
                                                         <td>{{ $brand->brand_name }}</td>
                                                         <td>

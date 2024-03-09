@@ -46,6 +46,7 @@
 
     <!-- Page CSS -->
 
+    <!-- Row Group CSS -->
     <!-- Helpers -->
     <script src=" {{ asset('../assets/vendor/js/helpers.js') }}"></script>
 
@@ -292,12 +293,34 @@
 <!-- Vendors JS -->
 <script src=" {{ asset('../assets/vendor/libs/apex-charts/apexcharts.js')}}"></script>
 
+
 <!-- Main JS -->
 <script src=" {{ asset('../assets/js/main.js')}}"></script>
 
 <!-- Page JS -->
 <script src=" {{ asset('../assets/js/dashboards-analytics.js')}}"></script>
 
+{{--Input Mask Js--}}
+<script src=" {{ asset('../assets/js/imask.js')}}"></script>
+
+<script>
+    var startPhoneMask = IMask(document.getElementById('phone1'), {
+        mask: '(00) 000-00-00'
+    }).on('accept', function() {
+        document.getElementById('phone1').style.display = '';
+        document.getElementById('phone1').innerHTML = startPhoneMask.unmaskedValue;
+    }).on('complete', function() {
+        document.getElementById('phone1').style.display = 'inline-block';
+    });
+    var startPhoneMask2 = IMask(document.getElementById('phone2'), {
+        mask: '(00) 000-00-00'
+    }).on('accept', function() {
+        document.getElementById('phone2').style.display = '';
+        document.getElementById('phone2').innerHTML = startPhoneMask2.unmaskedValue;
+    }).on('complete', function() {
+        document.getElementById('phone2').style.display = 'inline-block';
+    });
+</script>
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 @yield('script')

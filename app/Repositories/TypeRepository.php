@@ -18,7 +18,7 @@ class TypeRepository implements TypeRepositoryInterfaces
 
     public function all()
     {
-        return $this->type->cursorPaginate(10);
+        return $this->type->paginate(10);
     }
     public function get($id)
     {

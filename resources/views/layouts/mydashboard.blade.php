@@ -29,7 +29,9 @@
         href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
         rel="stylesheet"
     />
-
+    <!-- Select2 CSS -->
+    <link href="{{ asset('../assets/css/select2.css') }}" rel="stylesheet" />
+{{--    <link href="{{ asset('../assets/css/select2.min.css') }}" rel="stylesheet" />--}}
     <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href=" {{ asset('../assets/vendor/fonts/boxicons.css')}}"/>
     <link rel="stylesheet" href=" {{ asset('../assets/vendor/fonts/font_awesome.min.css')}}"/>
@@ -44,7 +46,8 @@
 
     <link rel="stylesheet" href=" {{ asset('../assets/vendor/libs/apex-charts/apex-charts.css')}}"/>
 
-    <!-- Page CSS -->
+
+
 
     <!-- Row Group CSS -->
     <!-- Helpers -->
@@ -299,11 +302,13 @@
 
 <!-- Page JS -->
 <script src=" {{ asset('../assets/js/dashboards-analytics.js')}}"></script>
+<script src="{{ asset('../assets/js/select2.min.js') }}"></script>
+<script src="{{ asset('../assets/js/bootstrap.select2.js') }}"></script>
 
 {{--Input Mask Js--}}
 <script src=" {{ asset('../assets/js/imask.js')}}"></script>
-
 <script>
+    $(".select2").select2();
     var startPhoneMask = IMask(document.getElementById('phone1'), {
         mask: '(00) 000-00-00'
     }).on('accept', function() {
@@ -320,7 +325,10 @@
     }).on('complete', function() {
         document.getElementById('phone2').style.display = 'inline-block';
     });
+
+
 </script>
+
 <!-- Place this tag in your head or just before your close body tag. -->
 <script async defer src="https://buttons.github.io/buttons.js"></script>
 @yield('script')

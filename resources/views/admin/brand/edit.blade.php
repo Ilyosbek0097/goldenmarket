@@ -3,7 +3,6 @@
 @section('content')
     <div class="row">
         <div class="col-lg-12 mb-4 order-0">
-
             <div class="card">
                 <div class="row">
                     <div class="col-lg-12 text-end mt-3 mr-2">
@@ -20,7 +19,7 @@
                             @method('PUT')
                             <div class="mb-3">
                                 <label class="form-label" for="type_id">Maxsulot Tipi</label>
-                                <select name="type_id" id="type_id" class="form-control">
+                                <select name="type_id" id="type_id" class="form-select select2">
                                     @foreach($typeAll as $type)
                                             <option   class="@if($type->type_id == $brand->type_id) text-success @endif" value="{{ $type->type_id }}">{{ $type->type_name }}</option>
                                      @endforeach
@@ -45,7 +44,5 @@
     </div>
 @endsection
 @section('script')
-    <script>
 
-    </script>
 @endsection

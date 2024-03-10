@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('invoice_order');
             $table->integer('check_status')->default(0);
             $table->string('add_comment')->nullable();
+            $table->bigInteger('mark_id')->nullable();
             $table->bigInteger('user_id');
             $table->bigInteger('branch_id');
             $table->timestamps();

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProductNameController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TypeController;
@@ -44,6 +45,7 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function 
     Route::resource('types', TypeController::class);
     Route::resource('brands', BrandController::class);
     Route::resource('suppliers', SupplierController::class);
+    Route::resource('productnames', ProductNameController::class);
 });
 //Super User
 Route::group(['middleware' => ['auth', 'superuser'], 'prefix' => 'superuser'], function (){

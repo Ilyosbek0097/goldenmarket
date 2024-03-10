@@ -24,6 +24,12 @@
             <div data-i18n="Analytics">Maxsulot Brendi</div>
         </a>
     </li>
+    <li class="menu-item {{ request()->is('admin/productnames') ? 'active' : '' }}">
+        <a href="{{ route('productnames.index') }}" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-collection"></i>
+            <div data-i18n="Analytics">Maxsulot To'liq Nomi</div>
+        </a>
+    </li>
     <li class="menu-item {{ request()->is('admin/suppliers') ? 'active' : '' }}">
         <a href="{{ route('suppliers.index') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-group"></i>

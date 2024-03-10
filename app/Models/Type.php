@@ -15,6 +15,11 @@ class Type extends Model
      * Get all of the brand for the Type
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     *
      */
+    public function productname()
+    {
+        return  $this->hasMany(ProductName::class);
+    }
 
 }

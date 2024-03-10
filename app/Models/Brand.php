@@ -24,4 +24,8 @@ class Brand extends Model
         $oneType = Type::where('type_id', $id)->first();
         return $oneType;
     }
+    public function productName()
+    {
+        return $this->hasMany(ProductName::class);
+    }
 }

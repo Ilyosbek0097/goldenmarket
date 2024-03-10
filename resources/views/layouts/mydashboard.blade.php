@@ -31,12 +31,23 @@
     />
     <!-- Select2 CSS -->
     <link href="{{ asset('../assets/css/select2.css') }}" rel="stylesheet" />
+
 {{--    <link href="{{ asset('../assets/css/select2.min.css') }}" rel="stylesheet" />--}}
+
+    {{--Datatable CSS   --}}
+{{--    <link href="{{ asset('../assets/css/datatable.css') }}" rel="stylesheet" />--}}
+{{--    <link href="{{ asset('../assets/css/responsive.datatable.css') }}" rel="stylesheet" />--}}
+{{--    <link href="{{ asset('../assets/css/datatable/typehead.css') }}" rel="stylesheet" />--}}
+    <link href="{{ asset('../assets/css/datatable/datatable-bootstrap5.css') }}" rel="stylesheet" />
+    <link href="{{ asset('../assets/css/datatable/responsive.datatable.css') }}" rel="stylesheet" />
+{{--    <link href="{{ asset('../assets/css/datatable/checkbox.datatable.css') }}" rel="stylesheet" />--}}
+{{--    <link href="{{ asset('../assets/css/datatable/buttons.datatable.css') }}" rel="stylesheet" />--}}
+{{--    <link href="{{ asset('../assets/css/datatable/rowgroup.datatable.css') }}" rel="stylesheet" />--}}
     <!-- Icons. Uncomment required icon fonts -->
     <link rel="stylesheet" href=" {{ asset('../assets/vendor/fonts/boxicons.css')}}"/>
     <link rel="stylesheet" href=" {{ asset('../assets/vendor/fonts/font_awesome.min.css')}}"/>
-
     <!-- Core CSS -->
+
     <link rel="stylesheet" href=" {{ asset('../assets/vendor/css/core.css')}}"  class="template-customizer-core-css"/>
     <link rel="stylesheet" class="template-customizer-theme-css" href=" {{ asset('../assets/vendor/css/theme-default.css')}}"/>
     <link rel="stylesheet" href=" {{ asset('../assets/css/demo.css')}}"/>
@@ -47,6 +58,8 @@
     <link rel="stylesheet" href=" {{ asset('../assets/vendor/libs/apex-charts/apex-charts.css')}}"/>
 
 
+    <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css"/>-->
+
 
 
     <!-- Row Group CSS -->
@@ -54,8 +67,14 @@
     <script src=" {{ asset('../assets/vendor/js/helpers.js') }}"></script>
 
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+    <script src="{{ asset('../assets/js/template.customize.js') }}"></script>
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src=" {{ asset('../assets/js/config.js')}}"></script>
+    <style>
+        .select2-selection__arrow{
+            margin-top: 15px;
+        }
+    </style>
 
 </head>
 
@@ -285,6 +304,7 @@
 
 <!-- Core JS -->
 <!-- build:js assets/vendor/js/core.js -->
+
 <script src=" {{ asset('../assets/vendor/libs/jquery/jquery.js')}}"></script>
 <script src=" {{ asset('../assets/vendor/libs/popper/popper.js')}}"></script>
 <script src=" {{ asset('../assets/vendor/js/bootstrap.js')}}"></script>
@@ -296,7 +316,12 @@
 <!-- Vendors JS -->
 <script src=" {{ asset('../assets/vendor/libs/apex-charts/apexcharts.js')}}"></script>
 
+{{--<script src="{{ asset('../assets/js/datatable.js') }}"></script>--}}
+<script src="{{ asset('../assets/js/datatables-bootstrap5.js') }}"></script>
+<script src="{{ asset('../assets/js/basic.datatable.js') }}"></script>
 
+{{--<script src="{{ asset('../assets/js/responsive.datatable.js') }}"></script>--}}
+{{--<script src="{{ asset('../assets/js/responsive.bootstrap.js') }}"></script>--}}
 <!-- Main JS -->
 <script src=" {{ asset('../assets/js/main.js')}}"></script>
 
@@ -305,10 +330,39 @@
 <script src="{{ asset('../assets/js/select2.min.js') }}"></script>
 <script src="{{ asset('../assets/js/bootstrap.select2.js') }}"></script>
 
+
+<script>
+    $(document).ready(function(){
+        $(".select2").select2();
+    });
+</script>
 {{--Input Mask Js--}}
 <script src=" {{ asset('../assets/js/imask.js')}}"></script>
 <script>
-    $(".select2").select2();
+    $(".datatable").DataTable({
+
+        "order": [
+            [0, "asc"]
+        ],
+        "language": {
+            "search": "Qidirish: ",
+            "info": "Ko'rsatilyapti _START_ dan _END_ gacha _TOTAL_ ta qatordan",
+            "processing": "Yuklanyapti...",
+            "zeroRecords": "Ma'lumotlar Topilmadi!",
+            "lengthMenu": "Ko'rish _MENU_ qator",
+            "paginate": {
+                "first": "Birinchisi",
+                "last": "Oxirgisi",
+                "next": ">",
+                "previous": "<"
+            },
+        },
+        processing: true,
+        responsive: true
+
+
+
+    });
     var startPhoneMask = IMask(document.getElementById('phone1'), {
         mask: '(00) 000-00-00'
     }).on('accept', function() {
@@ -330,7 +384,7 @@
 </script>
 
 <!-- Place this tag in your head or just before your close body tag. -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
+{{--<script async defer src="https://buttons.github.io/buttons.js"></script>--}}
 @yield('script')
 </body>
 </html>

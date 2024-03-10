@@ -9,22 +9,26 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ProductName extends Model
 {
     use HasFactory;
+    protected  $primaryKey = 'id';
 
     protected $guarded =[];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @param $id
+     * @return mixed
      */
-    public function type()
+    public function type($id)
     {
-        return $this->belongsTo(Type::class,'id', 'type_id');
+        return Type::where('type_id', $id)->first();
     }
 
+
     /**
-     * @return BelongsTo
+     * @param $id
+     * @return mixed
      */
-    public function brand()
+    public function brand($id)
     {
-        return $this->belongsTo(Brand::class, 'id', ownerKey: 'brand_id');
+        return Brand::where('brand_id', $id)->first();
     }
 }

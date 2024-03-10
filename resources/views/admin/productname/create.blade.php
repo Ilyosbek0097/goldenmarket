@@ -33,6 +33,7 @@
                             <div class="mb-3">
                                 <label class="form-label" for="brand_id">Brend Nomini Tanlang</label>
                                 <select name="brand_id" class="form-control select2 @error('brand_id') is-invalid @enderror" id="brand_id">
+                                    <option value="">--Maxsulot Brendini Tanlang--</option>
                                     @foreach($brandAll as $brand)
                                         <option value="{{ $brand->brand_id }}">{{ $brand->brand_name }}</option>
                                     @endforeach
@@ -64,7 +65,7 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="barcode">Barcode</label>
-                                <input class="form-control @error('barcode') is-invalid @enderror" name="barcode" id="barcode">
+                                <input readonly class="form-control @error('barcode') is-invalid @enderror" name="barcode" id="barcode" value="{{ $barcode->barcode + 1 ?? '10000' }}">
                                 @error('barcode')
                                     <div class="mt-2 text-danger">
                                         {{$message}}
@@ -83,8 +84,8 @@
 @endsection
 @section('script')
     <script>
-        $(document).ready(function(){
-           alert('salom');
-        });
+        // $(document).ready(function(){
+        //    alert('salom');
+        // });
     </script>
 @endsection

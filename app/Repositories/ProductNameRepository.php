@@ -42,7 +42,8 @@ class ProductNameRepository implements ProductNameRepositoryInterfaces
      */
     public function update($data, $id)
     {
-        return $this->productName->find($id)->update($data->all());
+        $requestAll = $data->except('_token','_method');
+        return $this->productName->find($id)->update($requestAll);
     }
 
     /**

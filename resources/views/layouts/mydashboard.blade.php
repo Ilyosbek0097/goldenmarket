@@ -74,8 +74,17 @@
         .select2-selection__arrow{
             margin-top: 15px;
         }
-    </style>
+        table.dataTable thead .sorting:before, table.dataTable thead .sorting_asc:before, table.dataTable thead .sorting_desc:before, table.dataTable thead .sorting_asc_disabled:before, table.dataTable thead .sorting_desc_disabled:before {
+            right: 1em;
+            content: "\02C6" !important;
+        }
 
+        table.dataTable thead .sorting:after, table.dataTable thead .sorting_asc:after, table.dataTable thead .sorting_desc:after, table.dataTable thead .sorting_asc_disabled:after, table.dataTable thead .sorting_desc_disabled:after {
+            right: 0.5em;
+            content: "\02C7" !important;
+        }
+    </style>
+    @yield('style')
 </head>
 
 <body>

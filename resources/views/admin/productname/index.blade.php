@@ -1,5 +1,8 @@
 @extends('layouts.mydashboard')
 @section('title', 'Product Names')
+@section('style')
+
+@endsection
 @section('content')
     <div class="row">
         <div class="col-lg-12 mb-4 order-0">
@@ -46,8 +49,8 @@
                                                 @foreach($productNameAll as $index => $productnames)
                                                     <tr>
                                                         <td><strong>{{ $index + $productNameAll->firstItem() }}</strong></td>
-                                                        <td>{{ $productnames->type->type_name }}</td>
-                                                        <td>{{ $productnames->brand->brand_name }}</td>
+                                                        <td>{{ $productnames->type($productnames->type_id)->type_name }}</td>
+                                                        <td>{{ $productnames->brand($productnames->brand_id)->brand_name }}</td>
                                                         <td>{{ $productnames->model_name }}</td>
                                                         <td>{{ $productnames->old_code }}</td>
                                                         <td>{{ $productnames->barcode }}</td>
@@ -104,7 +107,7 @@
                 e.preventDefault();
                 elemtID = $(this).data('id');
                 // $("#branchId").val(elemtID);
-               $("#confirmForm").attr('action', 'brands/'+elemtID);
+               $("#confirmForm").attr('action', 'productnames/'+elemtID);
             })
         });
     </script>

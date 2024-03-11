@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddProductController;
 use App\Http\Controllers\ProductNameController;
 use App\Http\Controllers\SupplierController;
 use Illuminate\Support\Facades\Route;
@@ -46,6 +47,7 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function 
     Route::resource('brands', BrandController::class);
     Route::resource('suppliers', SupplierController::class);
     Route::resource('productnames', ProductNameController::class);
+    Route::resource('addproducts', AddProductController::class);
 });
 //Super User
 Route::group(['middleware' => ['auth', 'superuser'], 'prefix' => 'superuser'], function (){

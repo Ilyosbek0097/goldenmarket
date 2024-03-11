@@ -40,6 +40,11 @@
 {{--    <link href="{{ asset('../assets/css/datatable/typehead.css') }}" rel="stylesheet" />--}}
     <link href="{{ asset('../assets/css/datatable/datatable-bootstrap5.css') }}" rel="stylesheet" />
     <link href="{{ asset('../assets/css/datatable/responsive.datatable.css') }}" rel="stylesheet" />
+{{--Bs- Stepper--}}
+    <link href="{{ asset('../assets/css/bs-stepper/bs-stepper.css') }}" rel="stylesheet" />
+    <link href="{{ asset('../assets/css/bs-stepper/bootstrap-select.css') }}" rel="stylesheet" />
+
+
 {{--    <link href="{{ asset('../assets/css/datatable/checkbox.datatable.css') }}" rel="stylesheet" />--}}
 {{--    <link href="{{ asset('../assets/css/datatable/buttons.datatable.css') }}" rel="stylesheet" />--}}
 {{--    <link href="{{ asset('../assets/css/datatable/rowgroup.datatable.css') }}" rel="stylesheet" />--}}
@@ -315,6 +320,7 @@
 <!-- build:js assets/vendor/js/core.js -->
 
 <script src=" {{ asset('../assets/vendor/libs/jquery/jquery.js')}}"></script>
+
 <script src=" {{ asset('../assets/vendor/libs/popper/popper.js')}}"></script>
 <script src=" {{ asset('../assets/vendor/js/bootstrap.js')}}"></script>
 <script src=" {{ asset('../assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
@@ -324,10 +330,13 @@
 
 <!-- Vendors JS -->
 <script src=" {{ asset('../assets/vendor/libs/apex-charts/apexcharts.js')}}"></script>
+<script src="{{ asset('../assets/js/bs-stepper/bootstrap-select.js') }}"></script>
 
 {{--<script src="{{ asset('../assets/js/datatable.js') }}"></script>--}}
 <script src="{{ asset('../assets/js/datatables-bootstrap5.js') }}"></script>
 <script src="{{ asset('../assets/js/basic.datatable.js') }}"></script>
+
+
 
 {{--<script src="{{ asset('../assets/js/responsive.datatable.js') }}"></script>--}}
 {{--<script src="{{ asset('../assets/js/responsive.bootstrap.js') }}"></script>--}}
@@ -338,16 +347,20 @@
 <script src=" {{ asset('../assets/js/dashboards-analytics.js')}}"></script>
 <script src="{{ asset('../assets/js/select2.min.js') }}"></script>
 <script src="{{ asset('../assets/js/bootstrap.select2.js') }}"></script>
+<script src="{{ asset('../assets/js/bs-stepper/bs-stepper.js') }}"></script>
 
-
+<script src="{{ asset('../assets/js/bs-stepper/form-wizard.js') }}"></script>
 <script>
     $(document).ready(function(){
         $(".select2").select2();
+
+
     });
 </script>
 {{--Input Mask Js--}}
 <script src=" {{ asset('../assets/js/imask.js')}}"></script>
 <script>
+
     $(".datatable").DataTable({
 
         "order": [

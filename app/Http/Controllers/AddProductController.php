@@ -3,16 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\AddProduct;
+use App\Repositories\Interfaces\AddProductRepositoryInterfaces;
 use Illuminate\Http\Request;
 
 class AddProductController extends Controller
 {
+    protected AddProductRepositoryInterfaces $addProductRepository;
+    public function __construct(AddProductRepositoryInterfaces $addProductRepository)
+    {
+        $this->addProductRepository = $addProductRepository;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        return view('admin.addproduct.index');
     }
 
     /**
@@ -20,7 +27,7 @@ class AddProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.addproduct.create');
     }
 
     /**

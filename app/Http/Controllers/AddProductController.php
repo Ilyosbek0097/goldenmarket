@@ -11,6 +11,7 @@ use App\Repositories\Interfaces\MarkRepositoryInterfaces;
 use App\Repositories\Interfaces\ProductNameRepositoryInterfaces;
 use App\Repositories\Interfaces\SupplierRepositoryInterfaces;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AddProductController extends Controller
 {
@@ -46,7 +47,8 @@ class AddProductController extends Controller
      */
     public function index()
     {
-        return view('admin.addproduct.index');
+        $addProductAll = $this->addProductRepository->all();
+        return view('admin.addproduct.index', compact('addProductAll'));
     }
 
     /**
@@ -58,16 +60,22 @@ class AddProductController extends Controller
         $supplierAll = $this->supplierRepository->all();
         $branchAll = $this->branchRepository->all();
         $addProductAll = $this->addProductRepository->all();
-        if($addProductAll == null)
+//        return  $addProductAll;
+        if($addProductAll->total() > 0)
         {
-            $addProductOne = '';
+            $addProductOne = $addProductAll->last();
+            $invoice_order = AddProduct::groupBy('invoice_order')
+                ->selectRaw('count(*) as total, invoice_order')
+                ->get();
+
         }
         else{
-            $addProductOne = $addProductAll->last();
+            $addProductOne = '';
+            $invoice_order = 0;
         }
         $markAll = $this->markRepository->all();
 
-        return view('admin.addproduct.create', compact('productNameAll', 'supplierAll', 'branchAll','addProductOne', 'markAll'));
+        return view('admin.addproduct.create', compact('invoice_order','productNameAll', 'supplierAll', 'branchAll','addProductOne', 'markAll'));
     }
 
     /**
@@ -75,7 +83,10 @@ class AddProductController extends Controller
      */
     public function store(AddProductStoreRequest $request)
     {
-        return $request;
+        return $this->execute(function () use ($request){
+            $this->addProductRepository->store($request);
+            return redirect()->route('addproducts.index')->with('success', "Ma'lumotlar Bazaga Muvaffaqiyatli Kiritildi!");
+        });
     }
 
     /**
@@ -108,5 +119,20 @@ class AddProductController extends Controller
     public function destroy(AddProduct $addProduct)
     {
         //
+    }
+
+    protected function execute(callable $callback)
+    {
+        DB::beginTransaction();
+        try{
+            $result = $callback();
+            DB::commit();
+            return $result;
+        }
+        catch (\Exception $e)
+        {
+            DB::rollBack();
+            return redirect()->back()->with('error', "Xatolik Sodir Bo'ldi!")->withErrors($e->getMessage());
+        }
     }
 }

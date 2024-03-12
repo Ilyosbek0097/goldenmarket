@@ -29,38 +29,47 @@
                                                 </div>
                                             @endif
                                         </div>
-                                        <table class="table">
-                                            <thead class="table-light ">
+                                        <table class="table datatable">
+                                            <thead class="table-light">
                                             <tr>
                                                 <th>№</th>
-                                                <th>Nomi</th>
-                                                <th>Manzili</th>
-                                                <th>Telefon Raqami</th>
-                                                <th>Surati</th>
+                                                <th>Kiritilgan Sana</th>
+                                                <th>Contragent</th>
+                                                <th>Filiali</th>
+                                                <th>Invoice Raqami</th>
+                                                <th>Maxsulot Nomi</th>
+                                                <th>Miqdori</th>
+                                                <th>Kirim UZS</th>
+                                                <th>Kirim $</th>
+                                                <th>Natsenkasi</th>
+                                                <th>Sotish Narxi</th>
+                                                <th>Kiritgan Xodim</th>
                                                 <th>Amallar</th>
                                             </tr>
                                             </thead>
-                                            <tbody class="table-border-bottom-0">
-{{--                                            @foreach($branchAll as $branch)--}}
-{{--                                                <tr>--}}
-{{--                                                    <td><strong>{{ $loop->iteration }}</strong></td>--}}
-{{--                                                    <td>{{ $branch->name }}</td>--}}
-{{--                                                    <td>--}}
-{{--                                                        {{\Illuminate\Support\Str::limit($branch->address, 15)}}--}}
-{{--                                                    </td>--}}
-{{--                                                    <td>--}}
-{{--                                                        {{ $branch->phone }}--}}
-{{--                                                    </td>--}}
-{{--                                                    <td>--}}
-{{--                                                        <img src="/site/images/{{ $branch->image}}" class="img-thumbnail" width="60">--}}
-{{--                                                    </td>--}}
-{{--                                                    <td>--}}
-{{--                                                        <a class="btn btn-success btn-sm" href="{{ route('branchs.show',$branch->id ) }}"><i class="bx bx-show me-1"></i> Ko'rish</a>--}}
-{{--                                                        <a class="btn btn-info btn-sm" href=" {{ route('branchs.edit', $branch->id) }}"><i class="bx bx-edit-alt me-1"></i> Tahrirlash</a>--}}
-{{--                                                        <button data-id="{{ $branch->id }}" type="button" class="btn btn-danger btn-sm btnDelete" data-bs-toggle="modal" data-bs-target="#modalTop" ><i class="bx bx-trash me-1"></i> O'chirish</button>--}}
-{{--                                                    </td>--}}
-{{--                                                </tr>--}}
-{{--                                            @endforeach--}}
+                                            <tbody class="table-border-bottom-0 text-center">
+                                                @foreach($addProductAll as $index => $addproduct)
+                                                    <tr>
+                                                        <td>{{$index + $addProductAll->firstItem()}}</td>
+                                                        <td>{{ \Carbon\Carbon::parse($addproduct->register_date)->format('d-M-Y')  }}</td>
+                                                        <td>{{ $addproduct->supplier->full_name }}</td>
+                                                        <td>{{ $addproduct->branch->name }}</td>
+                                                        <td> <span class="text-success">{{ $addproduct->invoice_order }}</span></td>
+                                                        <td>{{ $addproduct->productname->type->type_name }} {{$addproduct->productname->brand->brand_name}} {{ $addproduct->productname->model_name  }}</td>
+                                                        <td>{{ $addproduct->amount }}</td>
+                                                        <td>{{ number_format($addproduct->body_price_uzs, 0, '.', ' ') }}</td>
+                                                        <td>$ {{ $addproduct->body_price_usd }}</td>
+                                                        <td>{{ number_format($addproduct->mark->value, 0, '.', ' ') }} %</td>
+                                                        <td>{{ number_format($addproduct->sales_price, 0, '.', ' ') }} UZS</td>
+                                                        <td>{{ $addproduct->user->name }}</td>
+                                                        <td>
+                                                            <a class="btn btn-success btn-sm" href="{{ route('addproducts.show',$addproduct->id ) }}"><i class="bx bx-show me-1"></i> Ko'rish</a>
+                                                            <a class="btn btn-info btn-sm" href=" {{ route('addproducts.edit', $addproduct->id) }}"><i class="bx bx-edit-alt me-1"></i> Tahrirlash</a>
+                                                            <button data-id="{{ $addproduct->id }}" type="button" class="btn btn-danger btn-sm btnDelete" data-bs-toggle="modal" data-bs-target="#modalTop" ><i class="bx bx-trash me-1"></i> O'chirish</button>
+                                                        </td>
+
+                                                    </tr>
+                                                @endforeach
                                             </tbody>
                                         </table>
                                     </div>

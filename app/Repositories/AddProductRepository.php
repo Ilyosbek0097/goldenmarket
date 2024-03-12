@@ -2,17 +2,24 @@
 
 namespace App\Repositories;
 
+use App\Models\AddProduct;
 use App\Repositories\Interfaces\AddProductRepositoryInterfaces;
+use Illuminate\Support\Facades\Auth;
 
 class AddProductRepository implements AddProductRepositoryInterfaces
 {
+    protected AddProduct $addProduct;
+    public function __construct(AddProduct $addProduct)
+    {
+        $this->addProduct = $addProduct;
+    }
 
     /**
      * @inheritDoc
      */
     public function all()
     {
-        // TODO: Implement all() method.
+      return $this->addProduct->paginate(10);
     }
 
     /**
@@ -20,7 +27,7 @@ class AddProductRepository implements AddProductRepositoryInterfaces
      */
     public function get($id)
     {
-        // TODO: Implement get() method.
+        return $this->addProduct->findOrFail($id);
     }
 
     /**
@@ -28,7 +35,9 @@ class AddProductRepository implements AddProductRepositoryInterfaces
      */
     public function store($data)
     {
-        // TODO: Implement store() method.
+        $requestAll = ['user_id' => Auth::user()->id];
+        $requestAll = array_merge($requestAll, $data->all());
+      return $this->addProduct->create($requestAll);
     }
 
     /**
@@ -36,7 +45,7 @@ class AddProductRepository implements AddProductRepositoryInterfaces
      */
     public function update($data, $id)
     {
-        // TODO: Implement update() method.
+        return $this->addProduct->find($id)->update($data->all());
     }
 
     /**
@@ -44,6 +53,6 @@ class AddProductRepository implements AddProductRepositoryInterfaces
      */
     public function delete($id)
     {
-        // TODO: Implement delete() method.
+       return $this->addProduct->destroy($id);
     }
 }

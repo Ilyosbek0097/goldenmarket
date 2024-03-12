@@ -72,10 +72,20 @@
                                                                 <option value="{{$supplier->supplier_id}}">{{ $supplier->full_name }}</option>
                                                             @endforeach
                                                         </select>
+                                                        @error('supplier_id')
+                                                        <div class="mt-2 text-danger" role="alert">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <label class="form-label" for="register_date">Kelgan Sanasi</label>
                                                         <input type="date" name="register_date" class="form-control @error('register_date') is-invalid @enderror" id="register_date">
+                                                        @error('register_date')
+                                                        <div class="mt-2 text-danger" role="alert">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <label class="form-label" for="branch_id">Filial</label>
@@ -85,15 +95,29 @@
                                                                 <option value="{{$branch->id}}">{{ $branch->name }}</option>
                                                             @endforeach
                                                         </select>
+                                                        @error('branch_id')
+                                                        <div class="mt-2 text-danger" role="alert">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
                                                     </div>
                                                     <div class="col-sm-6">
+{{--                                                        {{ dd($invoice_order) }}--}}
                                                         <label class="form-label" for="invoice_order">Invoice Raqami</label>
-                                                        <select class="form-control  @error('invoice_order') is-invalid @enderror" name="invoice_order" id="invoice_order">
-                                                            <option value="1">1</option>
-                                                            <option selected value="2">2</option>
-                                                            <option value="3">3</option>
-
+                                                        <select class="form-control select2  @error('invoice_order') is-invalid @enderror" name="invoice_order" id="invoice_order">
+                                                           @if($invoice_order == 0)
+                                                               <option value="1">№ 1</option>
+                                                            @else
+                                                                @foreach($invoice_order as $invoice)
+                                                                    <option value="{{ $invoice->invoice_order }}">№ {{$invoice->invoice_order}}</option>
+                                                                @endforeach
+                                                           @endif
                                                         </select>
+                                                        @error('invoice_order')
+                                                        <div class="mt-2 text-danger" role="alert">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-between">
                                                         <button class="btn btn-label-secondary btn-prev" disabled="" type="button">
@@ -123,10 +147,20 @@
                                                                 <option value="{{ $product->id }}">{{ $product->type($product->type_id)->type_name }} {{ $product->brand($product->brand_id)->brand_name }} {{$product->model_name}}</option>
                                                             @endforeach
                                                         </select>
+                                                        @error('product_id')
+                                                        <div class="mt-2 text-danger" role="alert">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <label class="form-label" for="amount">Maxsulot Miqdori</label>
                                                         <input type="number" class="form-control @error('amount') is-invalid @enderror" name="amount" id="amount">
+                                                        @error('amount')
+                                                        <div class="mt-2 text-danger" role="alert">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <label class="form-label" for="body_price_uzs">Kirim So`m</label>
@@ -134,6 +168,11 @@
                                                             <span class="input-group-text text-warning">uzs</span>
                                                             <input type="number" class="form-control @error('body_price_uzs') is-invalid @enderror" name="body_price_uzs" id="body_price_uzs">
                                                         </div>
+                                                        @error('body_price_uzs')
+                                                        <div class="mt-2 text-danger" role="alert">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
 
                                                     </div>
                                                    <div class="col-sm-6">
@@ -142,19 +181,34 @@
                                                            <span class="input-group-text text-success">$</span>
                                                            <input type="number" class="form-control @error('body_price_usd') is-invalid @enderror" id="body_price_usd" name="body_price_usd">
                                                        </div>
+                                                       @error('body_price_usd')
+                                                       <div class="mt-2 text-danger" role="alert">
+                                                           {{ $message }}
+                                                       </div>
+                                                       @enderror
                                                    </div>
                                                     <div class="col-sm-6">
                                                         <label class="form-label" for="mark_id">Maxsulot Natsenkasi</label>
                                                         <select name="mark_id" class="form-control select2 @error('mark_id') is-invalid @enderror" id="mark_id">
-                                                                <option>---Natsenkani Tanlang---</option>
+                                                                <option value="">---Natsenkani Tanlang---</option>
                                                             @foreach($markAll as $mark)
                                                                 <option value="{{ $mark->mark_id }}">{{ $mark->mark_name }} Tipi--{{$mark->type}} Qiymati -- {{ $mark->value }}</option>
                                                             @endforeach
                                                         </select>
+                                                        @error('mark_id')
+                                                        <div class="mt-2 text-danger" role="alert">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <label class="form-label" for="sales_price">Maxsulot Sotish Narxi</label>
                                                         <input type="number" class="form-control @error('sales_price') is-invalid @enderror" name="sales_price" id="sales_price">
+                                                        @error('sales_price')
+                                                        <div class="mt-2 text-danger" role="alert">
+                                                            {{ $message }}
+                                                        </div>
+                                                        @enderror
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-between">
                                                         <button class="btn btn-primary btn-prev" type="button">
@@ -177,14 +231,10 @@
                                                 </div>
                                                 <div class="row g-3">
                                                     <div class="col-sm-6">
-                                                        <label class="form-label" for="twitter">Twitter</label>
-                                                        <input type="text" id="twitter" class="form-control"
-                                                               placeholder="https://twitter.com/abc">
+
                                                     </div>
                                                     <div class="col-sm-6">
-                                                        <label class="form-label" for="facebook">Facebook</label>
-                                                        <input type="text" id="facebook" class="form-control"
-                                                               placeholder="https://facebook.com/abc">
+
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-between">
                                                         <button class="btn btn-primary btn-prev" type="button">

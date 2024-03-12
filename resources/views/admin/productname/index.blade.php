@@ -49,8 +49,8 @@
                                                 @foreach($productNameAll as $index => $productnames)
                                                     <tr>
                                                         <td><strong>{{ $index + $productNameAll->firstItem() }}</strong></td>
-                                                        <td>{{ $productnames->type($productnames->type_id)->type_name }}</td>
-                                                        <td>{{ $productnames->brand($productnames->brand_id)->brand_name }}</td>
+                                                        <td>{{ $productnames->type->type_name }}</td>
+                                                        <td>{{ $productnames->brand->brand_name }}</td>
                                                         <td>{{ $productnames->model_name }}</td>
                                                         <td>{{ $productnames->old_code }}</td>
                                                         <td>{{ $productnames->barcode }}</td>

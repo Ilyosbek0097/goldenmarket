@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Mark extends Model
 {
     use HasFactory;
+    protected $primaryKey = 'mark_id';
+    protected $guarded = [];
 }

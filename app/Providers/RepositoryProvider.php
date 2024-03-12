@@ -6,8 +6,10 @@ use App\Repositories\AddProductRepository;
 use App\Repositories\BrandRepository;
 use App\Repositories\Interfaces\AddProductRepositoryInterfaces;
 use App\Repositories\Interfaces\BrandRepositoryInterfaces;
+use App\Repositories\Interfaces\MarkRepositoryInterfaces;
 use App\Repositories\Interfaces\ProductNameRepositoryInterfaces;
 use App\Repositories\Interfaces\SupplierRepositoryInterfaces;
+use App\Repositories\MarkRepository;
 use App\Repositories\ProductNameRepository;
 use App\Repositories\SupplierRepository;
 use App\Repositories\TypeRepository;
@@ -36,6 +38,7 @@ class RepositoryProvider extends ServiceProvider
        $this->app->bind(SupplierRepositoryInterfaces::class, SupplierRepository::class);
        $this->app->bind(ProductNameRepositoryInterfaces::class, ProductNameRepository::class);
        $this->app->bind(AddProductRepositoryInterfaces::class, AddProductRepository::class);
+       $this->app->bind(MarkRepositoryInterfaces::class, MarkRepository::class);
     }
 
     /**

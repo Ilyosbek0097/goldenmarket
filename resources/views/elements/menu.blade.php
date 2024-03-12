@@ -24,10 +24,22 @@
             <div data-i18n="Analytics">Maxsulot Brendi</div>
         </a>
     </li>
+    <li class="menu-item {{ request()->is('admin/marks') ? 'active' : '' }}">
+        <a href="{{ route('marks.index') }}" class="menu-link">
+            <i class="menu-icon tf-icons bx bxl-markdown"></i>
+            <div data-i18n="Analytics">Natsenka</div>
+        </a>
+    </li>
     <li class="menu-item {{ request()->is('admin/productnames') ? 'active' : '' }}">
         <a href="{{ route('productnames.index') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-collection"></i>
             <div data-i18n="Analytics">Maxsulot To'liq Nomi</div>
+        </a>
+    </li>
+    <li class="menu-item {{ request()->is('admin/addproducts') ? 'active' : '' }}">
+        <a href="{{ route('addproducts.index') }}" class="menu-link">
+            <i class="menu-icon tf-icons bx bxs-cart-add"></i>
+            <div data-i18n="Analytics">Maxsulot Qo'shish</div>
         </a>
     </li>
     <li class="menu-item {{ request()->is('admin/suppliers') ? 'active' : '' }}">

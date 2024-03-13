@@ -35,8 +35,8 @@ class AddProductRepository implements AddProductRepositoryInterfaces
      */
     public function store($data)
     {
-        $requestAll = ['user_id' => Auth::user()->id];
-        $requestAll = array_merge($requestAll, $data->all());
+        $requestAll1 = ['user_id' => Auth::user()->id];
+        $requestAll = array_merge($requestAll1, $data->all());
       return $this->addProduct->create($requestAll);
     }
 

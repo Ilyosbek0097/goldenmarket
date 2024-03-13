@@ -59,23 +59,11 @@ class AddProductController extends Controller
         $productNameAll = $this->productNameRepository->all();
         $supplierAll = $this->supplierRepository->all();
         $branchAll = $this->branchRepository->all();
-        $addProductAll = $this->addProductRepository->all();
-//        return  $addProductAll;
-        if($addProductAll->total() > 0)
-        {
-            $addProductOne = $addProductAll->last();
-            $invoice_order = AddProduct::groupBy('invoice_order')
-                ->selectRaw('count(*) as total, invoice_order')
-                ->get();
+        $addProductAll = $this->addProductRepository->all();//        return  $addProductAll;
 
-        }
-        else{
-            $addProductOne = '';
-            $invoice_order = 0;
-        }
         $markAll = $this->markRepository->all();
 
-        return view('admin.addproduct.create', compact('invoice_order','productNameAll', 'supplierAll', 'branchAll','addProductOne', 'markAll'));
+        return view('admin.addproduct.create', compact('addProductAll','productNameAll', 'supplierAll', 'branchAll', 'markAll'));
     }
 
     /**
@@ -83,6 +71,7 @@ class AddProductController extends Controller
      */
     public function store(AddProductStoreRequest $request)
     {
+//        return  $request;
         return $this->execute(function () use ($request){
             $this->addProductRepository->store($request);
             return redirect()->route('addproducts.index')->with('success', "Ma'lumotlar Bazaga Muvaffaqiyatli Kiritildi!");

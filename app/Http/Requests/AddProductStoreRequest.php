@@ -17,20 +17,21 @@ class AddProductStoreRequest extends FormRequest
     /**
      * Get the validation rules that apply to the request.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
+     *
      */
-    public function rules(): array
+    public function rules()
     {
         return [
             'register_date' => 'required|date',
             'product_id' => 'required',
-            'amount' => 'required|numeric',
-            'body_price_usd' => 'required|numeric',
-            'body_price_uzs' => 'required|numeric',
-            'sales_price' => 'required|numeric',
+            'amount' => 'required|numeric|between:0,9999999999999999.99',
+            'body_price_usd' => 'required|numeric|between:0,9999999999999999.99',
+            'body_price_uzs' => 'required|numeric|between:0,9999999999999999.99',
+            'sales_price' => 'required|numeric|between:0,9999999999999999.99',
             'supplier_id' => 'required',
             'mark_id' => 'required',
-            'branch_id' => 'required'
+            'branch_id' => 'required',
+            'invoice_order' => 'required'
 
         ];
     }
@@ -49,6 +50,7 @@ class AddProductStoreRequest extends FormRequest
             'supplier_id' => "Contragent",
             'mark_id' => "Natsenka",
             'branch_id' => "Filial",
+            'invoice_order' => "Invoice Raqami"
         ];
     }
     public function messages()
@@ -68,6 +70,7 @@ class AddProductStoreRequest extends FormRequest
             'supplier_id.required' => "Contragentni Tanlang",
             'mark_id.required' => "Natsenkani Tanlang",
             'branch_id.required' => "Filialni Tanlang",
+            'invoice_order.required' => "Invoice Raqamini Tanlang",
         ];
     }
 }

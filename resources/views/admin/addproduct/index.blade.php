@@ -44,6 +44,7 @@
                                                 <th>Natsenkasi</th>
                                                 <th>Sotish Narxi</th>
                                                 <th>Kiritgan Xodim</th>
+                                                <th>Status</th>
                                                 <th>Amallar</th>
                                             </tr>
                                             </thead>
@@ -57,11 +58,13 @@
                                                         <td> <span class="text-success">{{ $addproduct->invoice_order }}</span></td>
                                                         <td>{{ $addproduct->productname->type->type_name }} {{$addproduct->productname->brand->brand_name}} {{ $addproduct->productname->model_name  }}</td>
                                                         <td>{{ $addproduct->amount }}</td>
-                                                        <td>{{ number_format($addproduct->body_price_uzs, 0, '.', ' ') }}</td>
+                                                        <td>{{ number_format($addproduct->body_price_uzs, 2, '.', ' ') }}</td>
                                                         <td>$ {{ $addproduct->body_price_usd }}</td>
-                                                        <td>{{ number_format($addproduct->mark->value, 0, '.', ' ') }} %</td>
-                                                        <td>{{ number_format($addproduct->sales_price, 0, '.', ' ') }} UZS</td>
+                                                        <td>{{ number_format($addproduct->mark->value, 2, '.', ' ') }} %</td>
+                                                        <td>{{ number_format($addproduct->sales_price, 2, '.', ' ') }} UZS</td>
                                                         <td>{{ $addproduct->user->name }}</td>
+                                                        <td>@if($addproduct->check_status == 0) <span class="badge  bg-label-danger"><i class="bx bx-x-circle"></i> </span>@else <span class="badge  bg-label-success"><i class="bx bx-check-circle"></i></span @endif</td>
+
                                                         <td>
                                                             <a class="btn btn-success btn-sm" href="{{ route('addproducts.show',$addproduct->id ) }}"><i class="bx bx-show me-1"></i> Ko'rish</a>
                                                             <a class="btn btn-info btn-sm" href=" {{ route('addproducts.edit', $addproduct->id) }}"><i class="bx bx-edit-alt me-1"></i> Tahrirlash</a>

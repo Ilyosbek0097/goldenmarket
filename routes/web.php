@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AddProductController;
+use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\MarkController;
 use App\Http\Controllers\ProductNameController;
 use App\Http\Controllers\SupplierController;
@@ -50,6 +51,7 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function 
     Route::resource('productnames', ProductNameController::class);
     Route::resource('addproducts', AddProductController::class);
     Route::resource('marks', MarkController::class);
+    Route::resource('currencys', CurrencyController::class);
 });
 //Super User
 Route::group(['middleware' => ['auth', 'superuser'], 'prefix' => 'superuser'], function (){

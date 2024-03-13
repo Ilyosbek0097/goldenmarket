@@ -40,7 +40,6 @@ class MarkUpdateRequest extends FormRequest
     {
         return [
             'mark_name.required' => "Natsenka Nomini Kiriting",
-//            'mark_name.unique' => "Natsenka Nomi Takrorlanmas Bo'lishi Kerak",
             'type.required' => "Natsenka Tipini Tanlang",
             'value.required' => "Natsenka Qiymatini Kiriting",
         ];

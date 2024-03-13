@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->date('register_date');
             $table->bigInteger('product_id');
-            $table->decimal('amount', 8, 2);
-            $table->decimal('body_price_usd');
-            $table->decimal('body_price_uzs');
-            $table->decimal('sales_price');
+            $table->decimal('amount', 18, 2);
+            $table->decimal('body_price_usd',18,2);
+            $table->decimal('body_price_uzs',18,2);
+            $table->decimal('sales_price',18,2);
             $table->bigInteger('supplier_id');
             $table->integer('invoice_order');
             $table->integer('check_status')->default(0);

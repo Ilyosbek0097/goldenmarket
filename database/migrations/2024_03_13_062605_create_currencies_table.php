@@ -11,11 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('marks', function (Blueprint $table) {
-            $table->id('mark_id');
-            $table->string('mark_name');
-            $table->string('type');
-            $table->decimal('value');
+        Schema::create('currencies', function (Blueprint $table) {
+            $table->id();
+            $table->decimal('uzs');
+            $table->decimal('usd');
             $table->timestamps();
         });
     }
@@ -25,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('marks');
+        Schema::dropIfExists('currencies');
     }
 };

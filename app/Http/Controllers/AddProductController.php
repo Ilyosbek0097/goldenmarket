@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AddProductStoreRequest;
+use App\Http\Requests\AddProductUpdateRequest;
 use App\Models\AddProduct;
 use App\Repositories\Interfaces\AddProductRepositoryInterfaces;
 use App\Repositories\Interfaces\BranchRepositoryInterfaces;
@@ -59,7 +60,7 @@ class AddProductController extends Controller
         $productNameAll = $this->productNameRepository->all();
         $supplierAll = $this->supplierRepository->all();
         $branchAll = $this->branchRepository->all();
-        $addProductAll = $this->addProductRepository->all();//        return  $addProductAll;
+        $addProductAll = $this->addProductRepository->all();
 
         $markAll = $this->markRepository->all();
 
@@ -81,25 +82,38 @@ class AddProductController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(AddProduct $addProduct)
+    public function show($id)
     {
-        //
+        $addproduct = $this->addProductRepository->get($id);
+        return view('admin.addproduct.show', compact('addproduct'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(AddProduct $addProduct)
+    public function edit($id)
     {
-        //
+        $addproductOne= $this->addProductRepository->get($id);
+        $productNameAll = $this->productNameRepository->all();
+        $supplierAll = $this->supplierRepository->all();
+        $branchAll = $this->branchRepository->all();
+        $addProductAll = $this->addProductRepository->all();
+        $markAll = $this->markRepository->all();
+
+        return view('admin.addproduct.edit', compact('addproductOne', 'productNameAll', 'supplierAll', 'markAll', 'branchAll', 'addProductAll'));
     }
 
     /**
      * Update the specified resource in storage.
+     * @param AddProductUpdateRequest $request
+     * @param $id
      */
-    public function update(Request $request, AddProduct $addProduct)
+    public function update(AddProductUpdateRequest $request , $id)
     {
-        //
+        return $this->execute(function () use ($request, $id) {
+            $this->addProductRepository->update($request, $id);
+            return redirect()->route('addproducts.index')->with('success', "Ma'lumot Muvaffaqiyatli Tahrirlandi!");
+        });
     }
 
     /**
@@ -121,7 +135,7 @@ class AddProductController extends Controller
         catch (\Exception $e)
         {
             DB::rollBack();
-            return redirect()->back()->with('error', "Xatolik Sodir Bo'ldi!")->withErrors($e->getMessage());
+            return redirect()->back()->with('error', $e->getMessage())->withErrors($e->getMessage());
         }
     }
 }

@@ -55,7 +55,7 @@
                                         </div>
                                     </div>
                                     <div class="bs-stepper-content">
-                                        <form action="{{ route('addproducts.store') }}" method="POST">
+                                        <form action="{{ route('addproducts.store') }}" method="POST" id="addProductForm">
                                             @csrf
                                             <!-- Account Details -->
                                             <div id="account-details" class="content active dstepper-block">
@@ -105,12 +105,16 @@
 {{--                                                        {{ dd($invoice_order) }}--}}
                                                         <label class="form-label" for="invoice_order">Invoice Raqami</label>
                                                         <select class="form-control select2  @error('invoice_order') is-invalid @enderror" name="invoice_order" id="invoice_order">
-                                                            @if($addProductAll->total() > 0)
-                                                                <option value="{{ $addProductAll->last()->invoice_order-1 }}">{{$addProductAll->last()->invoice_order-1}}</option>
-                                                                <option selected value="{{ $addProductAll->last()->invoice_order }}">{{$addProductAll->last()->invoice_order}}</option>
-                                                                <option value="{{ $addProductAll->last()->invoice_order+1 }}">{{$addProductAll->last()->invoice_order+1}}</option>
+                                                            @if(!$addProductAll->isEmpty())
+                                                                @php
+                                                                    $uniqueInvoiceOrders = $addProductAll->pluck('invoice_order')->unique();
+                                                                @endphp
+                                                                @foreach($uniqueInvoiceOrders as $invoice_order)
+                                                                    <option @if($addProductAll->last()->invoice_order == $invoice_order) selected @endif value="{{ $invoice_order }}">№ {{ $invoice_order }}</option>
+                                                                @endforeach
+                                                                <option value="{{ $invoice_order+1 }}">№ {{ $invoice_order+1 }}</option>
                                                             @else
-
+                                                                <option value="1">№ 1</option>
                                                             @endif
 
                                                         </select>
@@ -170,7 +174,7 @@
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <label class="form-label" for="amount">Maxsulot Miqdori</label>
-                                                        <input type="number"  step="0.01"  class="form-control @error('amount') is-invalid @enderror" name="amount" id="amount">
+                                                        <input type="number"  step="0.01"  class="form-control @error('amount') is-invalid @enderror decimal_type" name="amount" id="amount">
                                                         @error('amount')
                                                         <div class="mt-2 text-danger" role="alert">
                                                             {{ $message }}
@@ -181,7 +185,7 @@
                                                         <label class="form-label" for="body_price_uzs">Kirim So`m</label>
                                                         <div class="input-group">
                                                             <span class="input-group-text text-warning">uzs</span>
-                                                            <input type="number"  step="0.01" class="form-control @error('body_price_uzs') is-invalid @enderror" name="body_price_uzs" id="body_price_uzs">
+                                                            <input type="number"  step="0.01" class="form-control @error('body_price_uzs') is-invalid @enderror decimal_type" name="body_price_uzs" id="body_price_uzs">
                                                         </div>
                                                         @error('body_price_uzs')
                                                         <div class="mt-2 text-danger" role="alert">
@@ -194,7 +198,7 @@
                                                        <label class="form-label" for="body_price_usd">Kirim $</label>
                                                        <div class="input-group">
                                                            <span class="input-group-text text-success">$</span>
-                                                           <input type="number"  step="0.01"  name="body_price_usd" class="form-control @error('body_price_usd') is-invalid @enderror" id="body_price_usd" >
+                                                           <input type="number"  step="0.01"  name="body_price_usd" class="form-control @error('body_price_usd') is-invalid @enderror decimal_type" id="body_price_usd" >
                                                        </div>
                                                        @error('body_price_usd')
                                                        <div class="mt-2 text-danger" role="alert">
@@ -205,9 +209,9 @@
                                                     <div class="col-sm-6">
                                                         <label class="form-label" for="mark_id">Maxsulot Natsenkasi</label>
                                                         <select name="mark_id" class="form-control select2 @error('mark_id') is-invalid @enderror" id="mark_id">
-                                                                <option value="">---Natsenkani Tanlang---</option>
+                                                                <option data-mark="" value="">---Natsenkani Tanlang---</option>
                                                             @foreach($markAll as $mark)
-                                                                <option value="{{ $mark->mark_id }}">{{ $mark->mark_name }} Tipi--{{$mark->type}} Qiymati -- {{ $mark->value }}</option>
+                                                                <option data-mark="{{ $mark->value }}" value="{{ $mark->mark_id }}">{{ $mark->mark_name }} Tipi--{{$mark->type}} Qiymati -- {{ round($mark->value) }}%</option>
                                                             @endforeach
                                                         </select>
                                                         @error('mark_id')
@@ -218,7 +222,10 @@
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <label class="form-label" for="sales_price">Maxsulot Sotish Narxi</label>
-                                                        <input type="number"  step="0.01" class="form-control @error('sales_price') is-invalid @enderror" name="sales_price" id="sales_price">
+                                                        <div class="input-group">
+                                                            <span class="input-group-text text-warning">uzs</span>
+                                                            <input readonly type="number"  step="0.01" class="form-control @error('sales_price') is-invalid @enderror decimal_type" name="sales_price" id="sales_price">
+                                                        </div>
                                                         @error('sales_price')
                                                         <div class="mt-2 text-danger" role="alert">
                                                             {{ $message }}
@@ -231,7 +238,7 @@
                                                             <span
                                                                 class="align-middle d-sm-inline-block d-none">Avvalgisi</span>
                                                         </button>
-                                                        <button class="btn btn-primary btn-next" type="button">
+                                                        <button class="btn btn-primary btn-next" type="button" id="decimal_test">
                                                             <span class="align-middle d-sm-inline-block d-none me-sm-1">Keyingisi</span>
                                                             <i class="bx bx-chevron-right bx-sm me-sm-n2"></i>
                                                         </button>
@@ -249,7 +256,7 @@
 
                                                     </div>
                                                     <div class="col-sm-6">
-
+                                                    <input  id="dollar_kursi" type="hidden" value="{{ session()->get('dollar_kursi') }}">
                                                     </div>
                                                     <div class="col-12 d-flex justify-content-between">
                                                         <button class="btn btn-primary btn-prev" type="button">
@@ -271,4 +278,64 @@
             </div>
         </div>
     </div>
+@endsection
+@section('script')
+    <script>
+       $(document).ready(function(){
+           $("#body_price_uzs").blur(function(){
+              var value = $(this).val();
+              var mark_value = $("#mark_id").select2().find(":selected").data("mark");
+              if(value != 0)
+              {
+                  $("#body_price_usd").val('0');
+                 if(mark_value != "")
+                 {
+                     var sales_price = value * ( 1+mark_value/100 );
+
+                     $("#sales_price").val(sales_price.toFixed(2));
+                 }
+              }
+           });
+           $("#body_price_usd").blur(function(){
+               var value = $(this).val();
+               var mark_value = $("#mark_id").select2().find(":selected").data("mark");
+               if(value != 0)
+               {
+                   $("#body_price_uzs").val('0');
+                   if(mark_value != "")
+                   {
+                       var currency = $("#dollar_kursi").val();
+                       var sales_price = value * currency*( 1+mark_value/100 );
+                       $("#sales_price").val(sales_price.toFixed(2));
+                   }
+               }
+           });
+           $("#mark_id").select2().change(function(){
+               var mark_value = $(this).find(":selected").data("mark");
+               var uzs = $("#body_price_uzs").val();
+               var usd = $("#body_price_usd").val();
+               var dollar_kursi = $("#dollar_kursi").val();
+               if(usd == 0)
+               {
+                   var sales_price = uzs*(1+mark_value/100);
+                   $("#sales_price").val(sales_price.toFixed(2));
+               }
+               else{
+                   var sales_price = usd * dollar_kursi * (1 + mark_value/100);
+                   $("#sales_price").val(sales_price.toFixed(2));
+               }
+           });
+           $("#decimal_test").click(function(){
+              $(".decimal_type").each(function (){
+                  var value = parseFloat($(this).val());
+                  var decimalPartLength = ($(this).val().split('.')[1] || '').length;
+
+                  if (decimalPartLength > 2) {
+                      alert("Xatolik: " + $(this).val() + " - Ushbu qiymatda o'nlik kasr qismida 3 dan ko'p raqam mavjud. Verguldan Keyin Faqat 2 Ta Raqam Yozing");
+                      $(this).val('');
+                  }
+              });
+           });
+       });
+    </script>
 @endsection

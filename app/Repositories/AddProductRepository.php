@@ -19,7 +19,7 @@ class AddProductRepository implements AddProductRepositoryInterfaces
      */
     public function all()
     {
-      return $this->addProduct->paginate(10);
+      return $this->addProduct->all();
     }
 
     /**

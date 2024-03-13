@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Repositories\AddProductRepository;
 use App\Repositories\BrandRepository;
+use App\Repositories\CurrencyRepository;
 use App\Repositories\Interfaces\AddProductRepositoryInterfaces;
 use App\Repositories\Interfaces\BrandRepositoryInterfaces;
+use App\Repositories\Interfaces\CurrencyRepositoryInterfaces;
 use App\Repositories\Interfaces\MarkRepositoryInterfaces;
 use App\Repositories\Interfaces\ProductNameRepositoryInterfaces;
 use App\Repositories\Interfaces\SupplierRepositoryInterfaces;
@@ -39,6 +41,7 @@ class RepositoryProvider extends ServiceProvider
        $this->app->bind(ProductNameRepositoryInterfaces::class, ProductNameRepository::class);
        $this->app->bind(AddProductRepositoryInterfaces::class, AddProductRepository::class);
        $this->app->bind(MarkRepositoryInterfaces::class, MarkRepository::class);
+       $this->app->bind(CurrencyRepositoryInterfaces::class, CurrencyRepository::class);
     }
 
     /**

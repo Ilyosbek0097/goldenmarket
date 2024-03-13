@@ -188,11 +188,11 @@
                     <!-- Search -->
                     <div class="navbar-nav align-items-center">
                         <div class="nav-item d-flex align-items-center">
-                            <i class="bx bx-search fs-4 lh-0"></i>
-                            <input
+                            <i class="bx bx-money fs-4 lh-0"></i>
+                            <input id="currency_id"
                                 type="text"
-                                class="form-control border-0 shadow-none"
-                                placeholder="Search..."
+                                class="form-control border-0 shadow-none" readonly
+                                value="Kurs: {{ number_format(session()->get('dollar_kursi'), 0, '.', ' ') }} UZS"
                                 aria-label="Search..."
                             />
                         </div>

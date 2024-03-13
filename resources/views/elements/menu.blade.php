@@ -30,6 +30,12 @@
             <div data-i18n="Analytics">Natsenka</div>
         </a>
     </li>
+    <li class="menu-item {{ request()->is('admin/currencys') ? 'active' : '' }}">
+        <a href="{{ route('currencys.index') }}" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-money"></i>
+            <div data-i18n="Analytics">Kurs</div>
+        </a>
+    </li>
     <li class="menu-item {{ request()->is('admin/productnames') ? 'active' : '' }}">
         <a href="{{ route('productnames.index') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-collection"></i>

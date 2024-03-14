@@ -1,5 +1,5 @@
 @extends('layouts.mydashboard')
-@section('title', 'Type Create')
+@section('title', 'Add Product')
 @section('content')
     <div class="row">
         <div class="col-lg-12 order-0">
@@ -66,7 +66,7 @@
                                                 <div class="row g-3">
                                                     <div class="col-sm-6">
                                                        <label class="form-label" for="supplier_id">Contragent</label>
-                                                        <select class="form-control select2 @error('supplier_id') is-invalid @enderror" name="supplier_id" id="supplier_id">
+                                                        <select class="form-control addItem select2 @error('supplier_id') is-invalid @enderror" name="supplier_id" id="supplier_id">
                                                             <option value="">--Contragentni Tanlang--</option>
                                                             @foreach($supplierAll as $supplier)
                                                                 <option value="{{$supplier->supplier_id}}">{{ $supplier->full_name }}</option>
@@ -80,7 +80,7 @@
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <label class="form-label" for="register_date">Kelgan Sanasi</label>
-                                                        <input type="date" name="register_date" class="form-control @error('register_date') is-invalid @enderror" id="register_date">
+                                                        <input type="date" name="register_date" class="addItem form-control @error('register_date') is-invalid @enderror" id="register_date">
                                                         @error('register_date')
                                                         <div class="mt-2 text-danger" role="alert">
                                                             {{ $message }}
@@ -89,7 +89,7 @@
                                                     </div>
                                                     <div class="col-sm-6">
                                                         <label class="form-label" for="branch_id">Filial</label>
-                                                        <select class="form-control select2 @error('branch_id') is-invalid @enderror" name="branch_id" id="branch_id">
+                                                        <select class="addItem form-control select2 @error('branch_id') is-invalid @enderror" name="branch_id" id="branch_id">
                                                             <option value="">--Filialni Tanlang--</option>
                                                             @foreach($branchAll as $branch)
                                                                 <option value="{{$branch->id}}">{{ $branch->name }}</option>
@@ -104,7 +104,7 @@
                                                     <div class="col-sm-6">
 {{--                                                        {{ dd($invoice_order) }}--}}
                                                         <label class="form-label" for="invoice_order">Invoice Raqami</label>
-                                                        <select class="form-control select2  @error('invoice_order') is-invalid @enderror" name="invoice_order" id="invoice_order">
+                                                        <select class="addItem form-control select2  @error('invoice_order') is-invalid @enderror" name="invoice_order" id="invoice_order">
                                                             @if(!$addProductAll->isEmpty())
                                                                 @php
                                                                     $uniqueInvoiceOrders = $addProductAll->pluck('invoice_order')->unique();
@@ -130,7 +130,11 @@
                                                             <span
                                                                 class="align-middle d-sm-inline-block d-none" >Avvalgisi</span>
                                                         </button>
-                                                        <button class="btn btn-primary btn-next" type="button">
+                                                        <button class="btn btn-primary"  id="nextOne" type="button">
+                                                            <span class="align-middle d-sm-inline-block d-none me-sm-1">Keyingisi</span>
+                                                            <i class="bx bx-chevron-right bx-sm me-sm-n2"></i>
+                                                        </button>
+                                                        <button class="btn btn-primary btn-next d-none"   id="nextTo" type="button">
                                                             <span class="align-middle d-sm-inline-block d-none me-sm-1">Keyingisi</span>
                                                             <i class="bx bx-chevron-right bx-sm me-sm-n2"></i>
                                                         </button>
@@ -282,6 +286,32 @@
 @section('script')
     <script>
        $(document).ready(function(){
+           $("#nextOne").click(function(){
+               var isEmpty = 0;
+              $(".addItem").each(function(){
+                var val = $(this).val();
+                if(val.trim() === '')
+                {
+                    isEmpty++;
+                    return false;
+                }
+              });
+              if(isEmpty > 0)
+              {
+                 Swal.fire({
+                     title: '',
+                     text: "Bo'sh Maydonlarni To'ldiring!",
+                     icon: 'warning',
+                     showConfirmButton: false,
+                     timer: 1000,
+                 })
+
+              }
+              else{
+                  $("#nextTo").click();
+              }
+
+           });
            $("#body_price_uzs").blur(function(){
               var value = $(this).val();
               var mark_value = $("#mark_id").select2().find(":selected").data("mark");
@@ -309,20 +339,33 @@
                        $("#sales_price").val(sales_price.toFixed(2));
                    }
                }
+
            });
            $("#mark_id").select2().change(function(){
                var mark_value = $(this).find(":selected").data("mark");
                var uzs = $("#body_price_uzs").val();
                var usd = $("#body_price_usd").val();
                var dollar_kursi = $("#dollar_kursi").val();
-               if(usd == 0)
+               if(usd == 0 && uzs >0)
                {
                    var sales_price = uzs*(1+mark_value/100);
                    $("#sales_price").val(sales_price.toFixed(2));
                }
-               else{
+               else if(uzs == 0 && usd > 0){
                    var sales_price = usd * dollar_kursi * (1 + mark_value/100);
                    $("#sales_price").val(sales_price.toFixed(2));
+               }
+               else{
+                   Swal.fire({
+                       title: '',
+                       text: "Valyuta Qiymati Hech Bo'lmasa Biri Noldan Farqli Bo'lishi Kerak!",
+                       icon: 'error',
+                       showConfirmButton: false,
+                       timer: 2000
+                   });
+                   $("#mark_id option:eq(0)").prop('selected', true);
+                   $("#body_price_uzs").val('');
+                   $("#body_price_usd").val('');
                }
            });
            $("#decimal_test").click(function(){

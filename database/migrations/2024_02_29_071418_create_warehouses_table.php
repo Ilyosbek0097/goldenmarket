@@ -16,11 +16,12 @@ return new class extends Migration
             $table->bigInteger('product_id');
             $table->bigInteger('branch_id');
             $table->bigInteger('user_id');
-            $table->decimal('product_amount');
-            $table->decimal('body_price_usd');
-            $table->decimal('body_price_uzs');
-            $table->decimal('sales_price');
-            $table->string('commit');
+            $table->bigInteger('mark_id');
+            $table->decimal('amount',18,2);
+            $table->decimal('body_price_usd',18,2);
+            $table->decimal('body_price_uzs',18,2);
+            $table->decimal('sales_price',18,2);
+            $table->string('commit')->nullable();
             $table->timestamps();
         });
     }

@@ -31,6 +31,8 @@
     />
     <!-- Select2 CSS -->
     <link href="{{ asset('../assets/css/select2.css') }}" rel="stylesheet" />
+    <link href="{{ asset('../assets/js/swetalert2/sweetalert2.css') }}" rel="stylesheet" />
+
 
 {{--    <link href="{{ asset('../assets/css/select2.min.css') }}" rel="stylesheet" />--}}
 
@@ -350,6 +352,7 @@
 <script src="{{ asset('../assets/js/bs-stepper/bs-stepper.js') }}"></script>
 
 <script src="{{ asset('../assets/js/bs-stepper/form-wizard.js') }}"></script>
+<script src="{{ asset('../assets/js/swetalert2/sweetalert2.js') }}"></script>
 <script>
     $(document).ready(function(){
         $(".select2").select2();

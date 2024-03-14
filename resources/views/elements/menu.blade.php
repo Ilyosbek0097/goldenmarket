@@ -382,7 +382,12 @@
 @elseif(auth()->user()->role == 'superuser')
 
 @else
-
+    <li class="menu-item {{ request()->is('user/warehouses') ? 'active' : '' }}">
+        <a href="{{ route('warehouses.index') }}" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-plus-circle"></i>
+            <div data-i18n="Analytics">Maxsulot Qo'shish</div>
+        </a>
+    </li>
 @endif
 
 

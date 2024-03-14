@@ -5,6 +5,7 @@ use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\MarkController;
 use App\Http\Controllers\ProductNameController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\WarehouseController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TypeController;
 use App\Http\Controllers\BrandController;
@@ -33,6 +34,9 @@ Route::group(['middleware' => ['auth', 'user'], 'prefix' => 'user'], function ()
     Route::get('/user_dashboard', function (){
         return view('user.user_home');
     })->middleware(['auth', 'user'])->name('user.user_dashboard');
+
+    Route::resource('warehouses', WarehouseController::class);
+
 });
 // Admin Route
 Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function (){
@@ -52,6 +56,7 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function 
     Route::resource('addproducts', AddProductController::class);
     Route::resource('marks', MarkController::class);
     Route::resource('currencys', CurrencyController::class);
+
 });
 //Super User
 Route::group(['middleware' => ['auth', 'superuser'], 'prefix' => 'superuser'], function (){

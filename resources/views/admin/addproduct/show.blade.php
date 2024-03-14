@@ -62,7 +62,7 @@
                                                     </tr>
                                                     <tr>
                                                         <th>Statusi</th>
-                                                        <td>@if($addproduct->check_status == 0) <span class="badge  bg-label-warning"><i class="bx bx-alarm"></i> </span>@else <span class="badge  bg-label-success"><i class="bx bx-check-circle"></i></span @endif</td>
+                                                        <td>@if($addproduct->check_status == 0) <span class="badge  bg-label-warning"><i class="bx bx-alarm"></i> </span>@elseif($addproduct->check_status == 2) <span class="badge  bg-label-danger"><i class="bx bx-x-circle"></i> </span> @else <span class="badge  bg-label-success"><i class="bx bx-check-circle"></i></span @endif</td>
                                                     </tr>
                                                 </tbody>
                                             </table>

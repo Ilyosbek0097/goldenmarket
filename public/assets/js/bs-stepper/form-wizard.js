@@ -25,49 +25,49 @@ $(function () {
             alert("Tasdiqlaysizmi!")
         })
     }
-    e = document.querySelector(".wizard-vertical"), t = [].slice.call(e.querySelectorAll(".btn-next")), l = [].slice.call(e.querySelectorAll(".btn-prev")), r = e.querySelector(".btn-submit");
-    if (null !== e) {
-        const n = new Stepper(e, {linear: !1});
-        t && t.forEach(e => {
-            e.addEventListener("click", e => {
-                n.next()
-            })
-        }), l && l.forEach(e => {
-            e.addEventListener("click", e => {
-                n.previous()
-            })
-        }), r && r.addEventListener("click", e => {
-            alert("Submitted..!!")
-        })
-    }
-    e = document.querySelector(".wizard-modern-example"), t = [].slice.call(e.querySelectorAll(".btn-next")), l = [].slice.call(e.querySelectorAll(".btn-prev")), r = e.querySelector(".btn-submit");
-    if (null !== e) {
-        const i = new Stepper(e, {linear: !1});
-        t && t.forEach(e => {
-            e.addEventListener("click", e => {
-                i.next()
-            })
-        }), l && l.forEach(e => {
-            e.addEventListener("click", e => {
-                i.previous()
-            })
-        }), r && r.addEventListener("click", e => {
-            alert("Submitted..!!")
-        })
-    }
-    e = document.querySelector(".wizard-modern-vertical"), t = [].slice.call(e.querySelectorAll(".btn-next")), l = [].slice.call(e.querySelectorAll(".btn-prev")), r = e.querySelector(".btn-submit");
-    if (null !== e) {
-        const a = new Stepper(e, {linear: !1});
-        t && t.forEach(e => {
-            e.addEventListener("click", e => {
-                a.next()
-            })
-        }), l && l.forEach(e => {
-            e.addEventListener("click", e => {
-                a.previous()
-            })
-        }), r && r.addEventListener("click", e => {
-            alert("Submitted..!!")
-        })
-    }
+    // e = document.querySelector(".wizard-vertical"), t = [].slice.call(e.querySelectorAll(".btn-next")), l = [].slice.call(e.querySelectorAll(".btn-prev")), r = e.querySelector(".btn-submit");
+    // if (null !== e) {
+    //     const n = new Stepper(e, {linear: !1});
+    //     t && t.forEach(e => {
+    //         e.addEventListener("click", e => {
+    //             n.next()
+    //         })
+    //     }), l && l.forEach(e => {
+    //         e.addEventListener("click", e => {
+    //             n.previous()
+    //         })
+    //     }), r && r.addEventListener("click", e => {
+    //         alert("Submitted..!!")
+    //     })
+    // }
+    // e = document.querySelector(".wizard-modern-example"), t = [].slice.call(e.querySelectorAll(".btn-next")), l = [].slice.call(e.querySelectorAll(".btn-prev")), r = e.querySelector(".btn-submit");
+    // if (null !== e) {
+    //     const i = new Stepper(e, {linear: !1});
+    //     t && t.forEach(e => {
+    //         e.addEventListener("click", e => {
+    //             i.next()
+    //         })
+    //     }), l && l.forEach(e => {
+    //         e.addEventListener("click", e => {
+    //             i.previous()
+    //         })
+    //     }), r && r.addEventListener("click", e => {
+    //         alert("Submitted..!!")
+    //     })
+    // }
+    // e = document.querySelector(".wizard-modern-vertical"), t = [].slice.call(e.querySelectorAll(".btn-next")), l = [].slice.call(e.querySelectorAll(".btn-prev")), r = e.querySelector(".btn-submit");
+    // if (null !== e) {
+    //     const a = new Stepper(e, {linear: !1});
+    //     t && t.forEach(e => {
+    //         e.addEventListener("click", e => {
+    //             a.next()
+    //         })
+    //     }), l && l.forEach(e => {
+    //         e.addEventListener("click", e => {
+    //             a.previous()
+    //         })
+    //     }), r && r.addEventListener("click", e => {
+    //         alert("Submitted..!!")
+    //     })
+    // }
 }();

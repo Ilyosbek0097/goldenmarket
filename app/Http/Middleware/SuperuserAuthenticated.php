@@ -6,6 +6,7 @@ use Closure;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Symfony\Component\HttpFoundation\Response;
 
 class SuperuserAuthenticated
@@ -20,6 +21,11 @@ class SuperuserAuthenticated
         if(Auth::check())
         {
             $user = Auth::user();
+
+            $lastItem = \App\Models\Currency::latest()->first();
+            if ($lastItem) {
+                Session::put('dollar_kursi', round($lastItem->uzs / $lastItem->usd));
+            }
 
             if($user->hasRole('admin')) {
                 return redirect(route('admin.admin_dashboard'));

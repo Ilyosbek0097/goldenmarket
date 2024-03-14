@@ -45,7 +45,15 @@ class AddProductRepository implements AddProductRepositoryInterfaces
      */
     public function update($data, $id)
     {
-        return $this->addProduct->find($id)->update($data->all());
+        $addProductOne  = $this->addProduct->find($id);
+        $requestAll = $data->all();
+
+        if($addProductOne['check_status'] == 2)
+        {
+          $requestAll = ['check_status' => 1];
+          $requestAll = array_merge($requestAll, $data->all);
+        }
+        return $this->addProduct->find($id)->update($requestAll);
     }
 
     /**

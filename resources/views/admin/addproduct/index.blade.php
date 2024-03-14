@@ -10,6 +10,12 @@
                             <div class="col-lg-12 text-end">
                                 <a href="{{ route('addproducts.create') }}" class="btn btn-primary"><i class="bx bx-plus align-middle" style="font-size: 26px"></i> Yangi Qo'shish</a>
                             </div>
+                            <div class="col-lg-12">
+                                <span class="badge  bg-label-warning mr-3"><i class="bx bx-alarm"></i></span> Qabul Qilinmagan&nbsp;
+                                <span class="badge  bg-label-danger mr-3 "><i class="bx bx-x-circle"></i></span> Bekor Qilingan &nbsp;
+                                <span class="badge  bg-label-success"><i class="bx bx-check-circle"></i></span> Tasdiqlangan
+
+                            </div>
 
                             <div class="col-lg-12 mt-4">
                                 <div class="card">
@@ -29,7 +35,7 @@
                                                 </div>
                                             @endif
                                         </div>
-                                        <table class="table datatable">
+                                        <table class="table datatable table-sm" >
                                             <thead class="table-light">
                                             <tr>
                                                 <th>№</th>
@@ -48,14 +54,14 @@
                                                 <th>Amallar</th>
                                             </tr>
                                             </thead>
-                                            <tbody class="table-border-bottom-0 text-center">
+                                            <tbody class="table-border-bottom-0 text-center " style="font-size: 13px;">
                                                 @foreach($addProductAll as $index => $addproduct)
                                                     <tr>
                                                         <td>{{$loop->iteration}}</td>
                                                         <td>{{ \Carbon\Carbon::parse($addproduct->register_date)->format('d-M-Y')  }}</td>
                                                         <td>{{ $addproduct->supplier->full_name }}</td>
                                                         <td>{{ $addproduct->branch->name }}</td>
-                                                        <td> <span class="text-success">{{ $addproduct->invoice_order }}</span></td>
+                                                        <td> <span class="badge bg-primary">№ {{ $addproduct->invoice_order }}</span></td>
                                                         <td>{{ $addproduct->productname->type->type_name }} {{$addproduct->productname->brand->brand_name}} {{ $addproduct->productname->model_name  }}</td>
                                                         <td>{{ $addproduct->amount }}</td>
                                                         <td>{{ number_format($addproduct->body_price_uzs, 0, '.', ' ') }}</td>
@@ -63,7 +69,7 @@
                                                         <td>{{ number_format($addproduct->mark->value, 2, '.', ' ') }} %</td>
                                                         <td>{{ number_format($addproduct->sales_price, 0, '.', ' ') }} UZS</td>
                                                         <td>{{ $addproduct->user->name }}</td>
-                                                        <td>@if($addproduct->check_status == 0) <span class="badge  bg-label-warning"><i class="bx bx-alarm"></i> </span>@else <span class="badge  bg-label-success"><i class="bx bx-check-circle"></i></span @endif</td>
+                                                        <td>@if($addproduct->check_status == 0) <span class="badge  bg-label-warning"><i class="bx bx-alarm"></i> </span>@elseif($addproduct->check_status == 2) <span class="badge  bg-label-danger"><i class="bx bx-x-circle"></i> </span> @else <span class="badge  bg-label-success"><i class="bx bx-check-circle"></i></span @endif</td>
 
                                                         @if($addproduct->check_status == 0)
                                                         <td>

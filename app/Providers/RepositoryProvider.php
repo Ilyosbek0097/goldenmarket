@@ -11,6 +11,7 @@ use App\Repositories\Interfaces\CurrencyRepositoryInterfaces;
 use App\Repositories\Interfaces\MarkRepositoryInterfaces;
 use App\Repositories\Interfaces\ProductNameRepositoryInterfaces;
 use App\Repositories\Interfaces\SupplierRepositoryInterfaces;
+use App\Repositories\Interfaces\UserRepositoryInterfaces;
 use App\Repositories\Interfaces\WarehouseRepositoryInterfaces;
 use App\Repositories\MarkRepository;
 use App\Repositories\ProductNameRepository;
@@ -19,6 +20,7 @@ use App\Repositories\TypeRepository;
 use App\Repositories\BranchRepository;
 use App\Repositories\StudentRepository;
 use App\Repositories\TeacherRepository;
+use App\Repositories\UserRepository;
 use App\Repositories\WarehouseRepository;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\Interfaces\TypeRepositoryInterfaces;
@@ -44,6 +46,7 @@ class RepositoryProvider extends ServiceProvider
        $this->app->bind(AddProductRepositoryInterfaces::class, AddProductRepository::class);
        $this->app->bind(MarkRepositoryInterfaces::class, MarkRepository::class);
        $this->app->bind(CurrencyRepositoryInterfaces::class, CurrencyRepository::class);
+       $this->app->bind(UserRepositoryInterfaces::class, UserRepository::class);
 
        $this->app->bind(WarehouseRepositoryInterfaces::class, WarehouseRepository::class);
     }

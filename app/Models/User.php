@@ -22,6 +22,7 @@ class User extends Authenticatable
         'role',
         'email',
         'password',
+        'branch_id'
     ];
 
     /**
@@ -46,5 +47,10 @@ class User extends Authenticatable
     public function hasRole(string $role): bool
     {
         return $this->getAttribute('role') === $role;
+    }
+
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class, 'branch_id', 'id');
     }
 }

@@ -3,6 +3,7 @@ namespace App\Repositories;
 
 use App\Models\User;
 use App\Repositories\Interfaces\UserRepositoryInterfaces;
+use Illuminate\Support\Facades\Hash;
 
 class UserRepository implements UserRepositoryInterfaces
 {
@@ -20,12 +21,18 @@ class UserRepository implements UserRepositoryInterfaces
 
     public function get($id)
     {
-        // TODO: Implement get() method.
+        return $this->user->findOrFail($id);
     }
 
     public function store($data)
     {
-        // TODO: Implement store() method.
+        return $this->user->create([
+            'name' => $data->name,
+            'email' => $data->email,
+            'role' => $data->role,
+            'branch_id' => $data->branch_id,
+            'password' => Hash::make($data->password)
+        ]);
     }
 
     public function update($data, $id)

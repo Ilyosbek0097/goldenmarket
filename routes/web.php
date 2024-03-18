@@ -5,6 +5,7 @@ use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\MarkController;
 use App\Http\Controllers\ProductNameController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\WarehouseController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\TypeController;
@@ -56,6 +57,7 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function 
     Route::resource('addproducts', AddProductController::class);
     Route::resource('marks', MarkController::class);
     Route::resource('currencys', CurrencyController::class);
+    Route::resource('users', UserController::class);
 
 });
 //Super User

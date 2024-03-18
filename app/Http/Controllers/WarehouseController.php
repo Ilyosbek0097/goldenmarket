@@ -28,7 +28,8 @@ class WarehouseController extends Controller
 
     public function index()
     {
-        return view('user.warehouse.index');
+        $productAll = $this->warehouseRepository->all();
+        return view('user.warehouse.index', compact('productAll'));
     }
 
     /**

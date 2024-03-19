@@ -29,7 +29,19 @@ class WarehouseController extends Controller
     public function index()
     {
         $productAll = $this->warehouseRepository->all();
-        return view('user.warehouse.index', compact('productAll'));
+        $addProduct = $this->addProductRepository->all();
+
+        if ($addProduct){
+            $countStatus = 0;
+            foreach ($addProduct as $product) {
+                if($product->check_status == 0)
+                {
+                    $countStatus++;
+                }
+            }
+        }
+
+        return view('user.warehouse.index', compact('productAll', 'countStatus'));
     }
 
     /**

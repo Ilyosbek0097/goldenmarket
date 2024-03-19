@@ -19,6 +19,8 @@ return new class extends Migration
             $table->decimal('final_sales');
             $table->boolean('canceled')->default(false);
             $table->date('canceled_date');
+            $table->bigInteger('client_id')->nullable();
+            $table->bigInteger('user_id');
             $table->timestamps();
         });
     }

@@ -22,6 +22,8 @@ use App\Repositories\StudentRepository;
 use App\Repositories\TeacherRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\WarehouseRepository;
+use App\Repositories\CashSalesRepository;
+use App\Repositories\Interfaces\CashSalesRepositoryInterfaces;
 use Illuminate\Support\ServiceProvider;
 use App\Repositories\Interfaces\TypeRepositoryInterfaces;
 use App\Repositories\Interfaces\BranchRepositoryInterfaces;
@@ -49,6 +51,7 @@ class RepositoryProvider extends ServiceProvider
        $this->app->bind(UserRepositoryInterfaces::class, UserRepository::class);
 
        $this->app->bind(WarehouseRepositoryInterfaces::class, WarehouseRepository::class);
+       $this->app->bind(CashSalesRepositoryInterfaces::class, CashSalesRepository::class);
     }
 
     /**

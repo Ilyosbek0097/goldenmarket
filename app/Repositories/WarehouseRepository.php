@@ -19,7 +19,14 @@ class WarehouseRepository implements WarehouseRepositoryInterfaces
 
     public function all()
     {
-        return $this->warehouse->all();
+        if(\auth()->user()->role == 'user')
+        {
+            return $this->warehouse->where('branch_id', auth()->user()->branch_id)->get();
+        }
+        else{
+            return $this->warehouse->all();
+        }
+
     }
 
     public function get($id)

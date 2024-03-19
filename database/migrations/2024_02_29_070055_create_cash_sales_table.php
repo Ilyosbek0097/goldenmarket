@@ -16,13 +16,14 @@ return new class extends Migration
             $table->bigInteger('product_id');
             $table->bigInteger('branch_id');
             $table->bigInteger('user_id');
-            $table->decimal('product_amount');
-            $table->decimal('body_price_usd');
-            $table->decimal('body_price_uzs');
-            $table->decimal('sales_price');
+            $table->decimal('amount', 18, 2);
+            $table->decimal('body_price_usd', 18, 2);
+            $table->decimal('body_price_uzs', 18, 2);
+            $table->decimal('sales_price', 18, 2);
             $table->integer('sales_order');
+            $table->integer('check_status')->default(0);
             $table->boolean('canceled')->default(false);
-            $table->date('canceled_date');
+            $table->date('canceled_date')->nullable();
             $table->timestamps();
         });
     }

@@ -83,6 +83,12 @@
             <div data-i18n="Analytics">Maxsulot Qo'shish</div>
         </a>
     </li>
+    <li class="menu-item {{ request()->is('user/cashsales') ? 'active' : '' }}">
+        <a href="{{ route('cashsales.index') }}" class="menu-link">
+            <i class="menu-icon tf-icons bx bxs-cart"></i>
+            <div data-i18n="Analytics">Maxsulot Sotish</div>
+        </a>
+    </li>
 @endif
 
 

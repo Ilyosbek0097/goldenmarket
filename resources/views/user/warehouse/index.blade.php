@@ -8,7 +8,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-12 text-end">
-                                    <a href="{{ route('warehouses.create') }}" class="btn btn-primary"><i class="bx bx-plus align-middle" style="font-size: 26px"></i> Yangi Qo'shish</a>
+                                   <a href="{{ route('warehouses.create') }}" class="btn btn-primary"><i class="bx bx-plus align-middle" style="font-size: 26px"></i> Yangi Qo'shish <span class="badge bg-warning">{{ $countStatus }} </span></a>
                                 </div>
 
                                 <div class="col-lg-12 mt-4">

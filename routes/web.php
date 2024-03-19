@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AddProductController;
+use App\Http\Controllers\CashSaleController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\MarkController;
 use App\Http\Controllers\ProductNameController;
@@ -37,6 +38,7 @@ Route::group(['middleware' => ['auth', 'user'], 'prefix' => 'user'], function ()
     })->middleware(['auth', 'user'])->name('user.user_dashboard');
 
     Route::resource('warehouses', WarehouseController::class);
+    Route::resource('cashsales', CashSaleController::class);
 
 });
 // Admin Route

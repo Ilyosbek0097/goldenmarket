@@ -19,7 +19,14 @@ class AddProductRepository implements AddProductRepositoryInterfaces
      */
     public function all()
     {
-      return $this->addProduct->all();
+        if (auth()->user()->role == 'user')
+        {
+            return $this->addProduct->where('branch_id', auth()->user()->branch_id)->get();
+        }
+        else{
+            return $this->addProduct->all();
+        }
+
     }
 
     /**

@@ -1,5 +1,5 @@
 @extends('layouts.mydashboard')
-@section('title', 'Users')
+@section('title', 'Product Sales')
 @section('content')
     <div class="row">
         <div class="col-lg-12 mb-4 order-0">
@@ -8,12 +8,12 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-12 text-end">
-                                    <a href="{{ route('users.create') }}" class="btn btn-primary"><i class="bx bx-plus align-middle" style="font-size: 26px"></i> Yangi Qo'shish</a>
+                                    <a href="{{ route('cashsales.create') }}" class="btn btn-primary"><i class="bx bx-plus align-middle" style="font-size: 26px"></i> Yangi Qo'shish</a>
                                 </div>
 
                                 <div class="col-lg-12 mt-4">
                                     <div class="card">
-                                        <h5 class="card-header">Xodimlar Ro'yxati</h5>
+                                        <h5 class="card-header">Sotilgan Maxsulotlar</h5>
                                         <div class="table-responsive text-nowrap">
                                             <div class="offset-md-1 col-md-10">
                                                 @if($message = session()->get('success'))
@@ -33,30 +33,14 @@
                                                 <thead class="table-light ">
                                                 <tr>
                                                     <th>№</th>
-                                                    <th>Ismi</th>
-                                                    <th>Email</th>
-                                                    <th>Mavqeyi</th>
-                                                    <th>Filiali</th>
+                                                    <th>Tipi</th>
+                                                    <th>Brendi</th>
                                                     <th>Amallar</th>
                                                 </tr>
                                                 </thead>
                                                 <tbody class="table-border-bottom-0">
-                                                    @foreach($userAll as $user)
-                                                        @if($user->role == 'user')
-                                                            <tr>
-                                                                <td>{{ $loop->iteration }}</td>
-                                                                <td>{{ $user->name }}</td>
-                                                                <td>{{ $user->email }}</td>
-                                                                <td>{{ $user->role }}</td>
-                                                                <td>{{ $user->branch->name ?? '-'}}</td>
-                                                                <td>
-                                                                    <a class="btn btn-success btn-sm" href="{{ route('users.show',$user->id ) }}"><i class="bx bx-show me-1"></i> Ko'rish</a>
-                                                                    <a class="btn btn-info btn-sm" href=" {{ route('users.edit', $user->id) }}"><i class="bx bx-edit-alt me-1"></i> Tahrirlash</a>
-                                                                    <button data-id="{{ $user->id }}" type="button" class="btn btn-danger btn-sm btnDelete" data-bs-toggle="modal" data-bs-target="#modalTop" ><i class="bx bx-trash me-1"></i> O'chirish</button>
-                                                                </td>
-                                                            </tr>
-                                                        @endif
-                                                    @endforeach
+
+
                                                 </tbody>
                                             </table>
                                             <div class="pagination justify-content-end mt-3 mb-3">
@@ -102,7 +86,7 @@
                 e.preventDefault();
                 elemtID = $(this).data('id');
                 // $("#branchId").val(elemtID);
-               $("#confirmForm").attr('action', 'users/'+elemtID);
+               $("#confirmForm").attr('action', 'brands/'+elemtID);
             })
         });
     </script>

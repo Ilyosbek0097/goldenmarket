@@ -90,6 +90,9 @@
             right: 0.5em;
             content: "\02C7" !important;
         }
+        .swal2-container {
+            z-index: 10000000000000;
+        }
     </style>
     @yield('style')
 </head>
@@ -189,7 +192,7 @@
                 <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
                     <!-- Search -->
                     <div class="navbar-nav align-items-center">
-                        <div class="nav-item d-flex align-items-center">
+                        <div class="nav-item d-flex align-items-center mr-3" >
                             <i class="bx bx-money fs-4 lh-0"></i>
                             <input id="currency_id"
                                 type="text"
@@ -197,7 +200,20 @@
                                 value="Kurs: {{ number_format(session()->get('dollar_kursi'), 0, '.', ' ') }} UZS"
                                 aria-label="Search..."
                             />
+
                         </div>
+                        <div class="nav-item d-flex align-items-center ml-3" >
+                            <i class="bx bx-location-plus fs-4 lh-0"></i>
+                            <input id="branch_name"
+                                   type="text"
+                                   class="form-control border-0 shadow-none" readonly
+                                   value="Filiali: {{ auth()->user()->branch->name }} "
+                                   aria-label="Search..."
+                            />
+
+                        </div>
+{{--                        <span class="badge bg-success">{{ auth()->user()->branch->name }} Filiali</span>--}}
+
                     </div>
                     <!-- /Search -->
 
@@ -208,6 +224,7 @@
                                 {{ auth()->user()->name; }}
                             </a>
                             <p class="text-center ">{{ auth()->user()->role; }}</p>
+
                         </li>
 
                         <!-- User -->

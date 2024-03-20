@@ -75,8 +75,9 @@ class CashSaleController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(CashSale $cashSale)
+    public function destroy($id)
     {
-        //
+       $this->cashsalesRepository->delete($id);
+       return redirect()->back()->with('success', "Ma'lumot O'chirildi!");
     }
 }

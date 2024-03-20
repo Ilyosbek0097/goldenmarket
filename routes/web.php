@@ -6,6 +6,7 @@ use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\MarkController;
 use App\Http\Controllers\ProductNameController;
 use App\Http\Controllers\SupplierController;
+use App\Http\Controllers\TotalSaleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WarehouseController;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +40,7 @@ Route::group(['middleware' => ['auth', 'user'], 'prefix' => 'user'], function ()
 
     Route::resource('warehouses', WarehouseController::class);
     Route::resource('cashsales', CashSaleController::class);
+    Route::resource('totalsales', TotalSaleController::class);
 
 });
 // Admin Route

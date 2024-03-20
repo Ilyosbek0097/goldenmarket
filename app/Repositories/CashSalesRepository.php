@@ -66,12 +66,23 @@ class CashSalesRepository implements CashSalesRepositoryInterfaces
             ->first();
         if($cashSalesProduct != null)
         {
-//            $this->warehouse->where('product_id', $cashSalesProduct->product_id)->where('user_id', auth())
+            $this->warehouse
+                ->where('product_id', $cashSalesProduct->product_id)
+                ->where('user_id', auth()->user()->branch_id)
+                ->update([
+                    'amount' => DB::raw('amount - '.$requestAll['amount'])
+                ]);
             return $this->cashsale->where('product_id', $cashSalesProduct->product_id)->update([
                 'amount' => DB::raw('amount + '.$requestAll['amount'])
             ]);
         }
         else{
+            $this->warehouse
+                ->where('product_id', $requestAll['product_id'])
+                ->where('branch_id', auth()->user()->branch_id)
+                ->update([
+                    'amount' => DB::raw('amount - '.$requestAll['amount'])
+                ]);
             return $this->cashsale->create([
                 'product_id' => $requestAll['product_id'],
                 'branch_id' => auth()->user()->branch_id,
@@ -92,6 +103,13 @@ class CashSalesRepository implements CashSalesRepositoryInterfaces
     }
     public function delete($id)
     {
+        $cashSales = $this->cashsale->find($id);
+        $this->warehouse
+            ->where('product_id', $cashSales->product_id)
+            ->where('branch_id', auth()->user()->branch_id)
+            ->update([
+                'amount' => DB::raw('amount+'.$cashSales->amount)
+            ]);
        return $this->cashsale->destroy($id);
     }
 

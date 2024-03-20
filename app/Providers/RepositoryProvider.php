@@ -11,11 +11,13 @@ use App\Repositories\Interfaces\CurrencyRepositoryInterfaces;
 use App\Repositories\Interfaces\MarkRepositoryInterfaces;
 use App\Repositories\Interfaces\ProductNameRepositoryInterfaces;
 use App\Repositories\Interfaces\SupplierRepositoryInterfaces;
+use App\Repositories\Interfaces\TotalSaleRepositoryInterfaces;
 use App\Repositories\Interfaces\UserRepositoryInterfaces;
 use App\Repositories\Interfaces\WarehouseRepositoryInterfaces;
 use App\Repositories\MarkRepository;
 use App\Repositories\ProductNameRepository;
 use App\Repositories\SupplierRepository;
+use App\Repositories\TotalSaleRepository;
 use App\Repositories\TypeRepository;
 use App\Repositories\BranchRepository;
 use App\Repositories\StudentRepository;
@@ -52,6 +54,7 @@ class RepositoryProvider extends ServiceProvider
 
        $this->app->bind(WarehouseRepositoryInterfaces::class, WarehouseRepository::class);
        $this->app->bind(CashSalesRepositoryInterfaces::class, CashSalesRepository::class);
+       $this->app->bind(TotalSaleRepositoryInterfaces::class, TotalSaleRepository::class);
     }
 
     /**

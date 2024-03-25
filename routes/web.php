@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\AddProductController;
 use App\Http\Controllers\CashSaleController;
+use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\MarkController;
+use App\Http\Controllers\PayListController;
 use App\Http\Controllers\ProductNameController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TotalSaleController;
@@ -41,6 +43,8 @@ Route::group(['middleware' => ['auth', 'user'], 'prefix' => 'user'], function ()
     Route::resource('warehouses', WarehouseController::class);
     Route::resource('cashsales', CashSaleController::class);
     Route::resource('totalsales', TotalSaleController::class);
+    Route::resource('paylists', PayListController::class);
+    Route::resource('clients', ClientController::class);
 
 });
 // Admin Route

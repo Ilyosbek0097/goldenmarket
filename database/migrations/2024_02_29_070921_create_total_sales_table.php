@@ -14,12 +14,13 @@ return new class extends Migration
         Schema::create('total_sales', function (Blueprint $table) {
             $table->id();
             $table->integer('sales_order');
-            $table->decimal('total_sales');
-            $table->decimal('discount');
-            $table->decimal('final_sales');
+            $table->decimal('total_sales', 18, 2);
+            $table->decimal('discount', 18, 2);
+            $table->decimal('final_sales', 18, 2);
             $table->boolean('canceled')->default(false);
-            $table->date('canceled_date');
+            $table->date('canceled_date')->nullable();
             $table->bigInteger('client_id')->nullable();
+            $table->bigInteger('caller_id')->nullable();
             $table->bigInteger('user_id');
             $table->timestamps();
         });

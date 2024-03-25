@@ -89,11 +89,12 @@
                                     </table>
                                 </div>
                             </div>
+
                             <div class="col-lg-12">
                                 <div class="mt-3">
-                                    <button class="btn btn-primary float-end" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd">Sotishni Tasdiqlash</button>
+                                    <button class="btn btn-primary float-end" type="button" id="sotishni_tasdiqlash_btn" data-bs-toggle="offcanvas" data-bs-target="#offcanvasEnd" aria-controls="offcanvasEnd">Sotishni Tasdiqlash</button>
                                         <div class="offcanvas offcanvas-end table-responsive" tabindex="-1" id="offcanvasEnd" aria-labelledby="offcanvasEndLabel">
-                                        <form action="{{ route('totalsales.store') }}" method="POST">
+                                        <form action="{{ route('totalsales.store') }}" method="POST" id="sales_confirm_form">
                                             @csrf
                                             <div class="offcanvas-header">
                                                 <h5 id="offcanvasEndLabel" class="offcanvas-title">Maxsulotni Sotish</h5>
@@ -101,27 +102,28 @@
                                             </div>
                                             <div class="offcanvas-body my-auto mx-0 flex-grow-0">
                                                 <div class="mb-1">
-                                                    <label class="form-label-sm" for="sales_order">Invoice Raqami № 12</label>
-                                                    <input type="hidden" class="form-control form-control-sm" id="sales_order" name="sales_order"/>
+                                                    <label class="form-label-sm" for="sales_order">Invoice Raqami <span class="badge bg-danger">№ {{ ($cashSalesProduct->isEmpty()) ? '' : $cashSalesProduct[0]->sales_order }}</span></label>
+                                                    <input required type="hidden" class="form-control form-control-sm" id="sales_order" name="sales_order" value="{{ ($cashSalesProduct->isEmpty()) ? '' : $cashSalesProduct[0]->sales_order }}"/>
                                                 </div>
                                                 <div class="mb-1">
                                                     <label class="form-label-sm" for="total_sales">Jami Savdo</label>
-                                                    <input type="text" class="form-control form-control-sm" readonly id="total_sales" name="total_sales">
+                                                    <input required type="text" class="form-control form-control-sm" readonly id="total_sales" name="total_sales">
                                                 </div>
                                                 <div class="mb-1">
                                                     <label class="form-label-sm" for="user_id">Kim Tomonidan Kelgan</label>
-                                                    <select class="form-control form-control-sm" name="user_id" id="user_id">
-                                                       <option>--Xodimni Tanlang--</option>
-                                                       <option>Madina</option>
-                                                       <option>Nodira</option>
-                                                       <option>E'zoza</option>
-                                                       <option>Muyassar</option>
-                                                       <option>Otabek</option>
+                                                    <select  class="form-control form-control-sm" name="user_id" id="user_id">
+                                                       <option value="0">--Xodimni Tanlang--</option>
+                                                        @if($userAll)
+                                                            @foreach($userAll as $user)
+                                                                <option value="{{ $user->id }}">{{ $user->name }}</option>
+                                                            @endforeach
+                                                        @endif
                                                     </select>
                                                 </div>
                                                 <div class="mb-1">
                                                     <label class="form-label-sm" for="discount_id">Chegirma %</label>
-                                                    <select class="form-control form-control-sm" name="discount_id" id="discount_id">
+                                                    <select required class="form-control form-control-sm" name="discount_id" id="discount_id">
+                                                        <option value="">--Chegirmani Tanlang--</option>
                                                         @for($i=0; $i<=10; $i++)
                                                             <option value="{{ $i }}">{{ $i }} %</option>
                                                         @endfor
@@ -129,40 +131,39 @@
                                                 </div>
                                                 <div class="mb-1">
                                                     <label class="form-label-sm">Chegirma Summasi</label>
-                                                    <input type="number" readonly step="0.001" class="form-control form-control-sm" name="discount_value" id="discount_value">
+                                                    <input type="number" readonly step="0.001" class="form-control form-control-sm element" name="discount_value" id="discount_value">
                                                 </div>
                                                 <div class="mb-1">
                                                     <label class="form-label-sm" for="final_sales">Kassa Summasi</label>
-                                                    <input type="text" readonly step="0.01" class="form-control form-control-sm currency_mask" id="final_sales" name="final_sales"/>
+                                                    <input type="text" readonly step="0.01" class="form-control form-control-sm currency_mask element" id="final_sales" name="final_sales"/>
                                                 </div>
                                                 <div class="mb-1">
                                                     <label class="form-label-sm" for="pay_cash">Naqd</label>
-                                                    <input type="number" step="0.01" class="form-control form-control-sm" id="pay_cash" name="pay_cash"/>
+                                                    <input required type="number" step="0.01" class="form-control form-control-sm element" id="pay_cash" name="pay_cash"/>
                                                 </div>
                                                 <div class="mb-1">
                                                     <label class="form-label-sm" for="pay_plastic">Plastik</label>
-                                                    <input type="number" step="0.01" class="form-control form-control-sm" id="pay_plastic" name="pay_plastic"/>
+                                                    <input required type="number" step="0.01" class="form-control form-control-sm element" id="pay_plastic" name="pay_plastic"/>
                                                 </div>
                                                 <div class="mb-1">
                                                     <label class="form-label-sm" for="diff_pay">To'lov Farqi</label>
-                                                    <input type="number" step="0.01" class="form-control form-control-sm" readonly id="diff_pay" name="diff_pay"/>
+                                                    <input type="number" step="0.01" class="form-control form-control-sm element" readonly id="diff_pay" name="diff_pay"/>
                                                 </div>
                                                 <hr>
-                                                <div class="mb-1 d-none">
+
+                                                <div class="mb-1" id="customer_block">
+                                                    <span class="text-danger text-sm">Bonus Oluvchi Mijoz Ma'lumotlari</span><br>
                                                     <label class="form-label-sm" for="full_name">Mijoz Ismi</label>
                                                     <input type="text" class="form-control form-control-sm" name="full_name" id="full_name" placeholder="Mijozni Ismini Kiriting...">
-                                                    <br>
                                                     <label class="form-label-sm" for="address">Mijoz Manzili</label>
                                                     <input type="text" class="form-control form-control-sm" name="address" id="address" placeholder="Mijozni Manzilini Kiriting...">
-                                                    <br>
                                                     <label class="form-label-sm" for="phone1">Telefon Raqami 1</label>
                                                     <input type="text" class="form-control form-control-sm" name="phone1" id="phone1" placeholder="(91) 327-00-97">
-                                                    <br>
                                                     <label class="form-label-sm" for="phone2">Telefon Raqami 2</label>
                                                     <input type="text" class="form-control form-control-sm" name="phone2" id="phone2" placeholder="(91) 327-00-97">
                                                 </div>
 
-                                                <button type="submit" class="btn btn-primary mb-2 d-grid w-100">Tasdiqlash</button>
+                                                <button type="button" id="sales_confirm_btn" class="btn btn-primary mb-2 d-grid w-100">Tasdiqlash</button>
                                                 <button type="button" class="btn btn-outline-secondary d-grid w-100" data-bs-dismiss="offcanvas">Bekor Qilish</button>
                                             </div>
                                         </form>
@@ -240,7 +241,12 @@
 @section('script')
     <script>
         $(document).ready(function() {
+            var diff_pay = $("#diff_pay").val();
+
+            $("#customer_block").hide();
             var total_sales = 0;
+
+
             $("#cashSalesTable tbody tr").each( function(){
                 let columnValue =  $(this).find('td:eq(4)').text();
                 if(columnValue != '')
@@ -253,8 +259,17 @@
                 }
 
             });
-
             $("#total_sales").val(total_sales.toFixed(0) ?? 0);
+            if(total_sales >= 5000000)
+            {
+                $("#customer_block").show();
+            }
+           $(document).on('click', '#sales_confirm_btn', function() {
+             diff_pay = $("#diff_pay").val();
+             if(parseFloat(diff_pay) == 0){
+                 $("#sales_confirm_form").submit();
+             }
+           });
 
            $(document).on('change','#discount_id', function(){
                $('#discount_value').val('');

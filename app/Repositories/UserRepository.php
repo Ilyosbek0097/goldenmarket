@@ -16,7 +16,13 @@ class UserRepository implements UserRepositoryInterfaces
 
     public function all()
     {
-        return $this->user->all();
+        if(auth()->user()->role == 'user')
+        {
+            return $this->user->where('role', 'user')->get();
+        }
+        else{
+            return $this->user->all();
+        }
     }
 
     public function get($id)

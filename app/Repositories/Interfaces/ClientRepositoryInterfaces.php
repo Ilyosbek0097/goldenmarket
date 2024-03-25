@@ -1,7 +1,7 @@
 <?php
 namespace App\Repositories\Interfaces;
 
-interface TotalSaleRepositoryInterfaces
+interface ClientRepositoryInterfaces
 {
     /**
      * @return mixed
@@ -32,6 +32,5 @@ interface TotalSaleRepositoryInterfaces
      * @return mixed
      */
     public function delete($id);
-    public function last($invoice);
 
 }

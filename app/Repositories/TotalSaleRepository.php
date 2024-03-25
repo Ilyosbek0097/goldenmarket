@@ -18,12 +18,12 @@ class TotalSaleRepository implements TotalSaleRepositoryInterfaces
 
     public function get($id)
     {
-        // TODO: Implement get() method.
+
     }
 
     public function store($data)
     {
-        // TODO: Implement store() method.
+        return $this->totalSale->create($data);
     }
 
     public function update($data, $id)
@@ -35,4 +35,9 @@ class TotalSaleRepository implements TotalSaleRepositoryInterfaces
     {
         // TODO: Implement delete() method.
     }
+    public function last($invoice)
+    {
+        return $this->totalSale->where('sales_order', $invoice)->where('user_id', auth()->id())->first();
+    }
+
 }

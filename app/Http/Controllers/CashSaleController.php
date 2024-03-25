@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CashSaleStoreRequest;
 use App\Models\CashSale;
 use App\Repositories\Interfaces\CashSalesRepositoryInterfaces;
+use App\Repositories\Interfaces\UserRepositoryInterfaces;
 use App\Repositories\Interfaces\WarehouseRepositoryInterfaces;
 use Illuminate\Http\Request;
 
@@ -12,11 +13,16 @@ class CashSaleController extends Controller
 {
     protected CashSalesRepositoryInterfaces $cashsalesRepository;
     protected WarehouseRepositoryInterfaces $warehouseRepository;
-
-    public function __construct(CashSalesRepositoryInterfaces $cashsalesRepository, WarehouseRepositoryInterfaces $warehouseRepository)
+    protected UserRepositoryInterfaces $userRepository;
+    public function __construct(
+            CashSalesRepositoryInterfaces $cashsalesRepository,
+            WarehouseRepositoryInterfaces $warehouseRepository,
+            UserRepositoryInterfaces $userRepository
+        )
     {
         $this->cashsalesRepository = $cashsalesRepository;
         $this->warehouseRepository = $warehouseRepository;
+        $this->userRepository = $userRepository;
 
     }
 
@@ -35,7 +41,10 @@ class CashSaleController extends Controller
     {
         $warehouseProduct = $this->warehouseRepository->all();
         $cashSalesProduct = $this->cashsalesRepository->all();
-        return view('user.cashsale.create', compact('warehouseProduct','cashSalesProduct'));
+
+        $userAll = $this->userRepository->all();
+
+        return view('user.cashsale.create', compact('warehouseProduct','cashSalesProduct', 'userAll'));
     }
 
     /**
@@ -45,7 +54,12 @@ class CashSaleController extends Controller
     {
 
         $this->cashsalesRepository->store($request);
-        return redirect()->back()->with('success', 'Kiritildi');
+        $cashSalesProduct = $this->cashsalesRepository->all();
+        return redirect()->back()->with([
+                'success' => 'Kiritildi',
+                'cashSalesProduct' => $cashSalesProduct,
+            ]
+        );
     }
 
     /**

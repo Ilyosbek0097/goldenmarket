@@ -65,7 +65,7 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="barcode">Barcode</label>
-                                <input readonly class="form-control @error('barcode') is-invalid @enderror" name="barcode" id="barcode" value="{{ $barcode->barcode + 1 ?? '10000' }}">
+                                <input readonly class="form-control @error('barcode') is-invalid @enderror" name="barcode" id="barcode" value="{{ $barcode ? $barcode->barcode + 1 : '10000' }}">
                                 @error('barcode')
                                     <div class="mt-2 text-danger">
                                         {{$message}}

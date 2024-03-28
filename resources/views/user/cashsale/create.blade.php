@@ -3,6 +3,12 @@
 @section('content')
     <div class="row">
         <div class="col-lg-12">
+            @error('error')
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                {{ $message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            @enderror
             @error('product_id')
                 <div class="alert alert-danger alert-dismissible" role="alert">
                     {{ $message }}
@@ -72,18 +78,20 @@
                                         </thead>
                                         <tbody>
                                         @foreach($cashSalesProduct as $cashproduct)
-                                            <tr>
-                                                <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $cashproduct->product->type->type_name }} {{ $cashproduct->product->brand->brand_name }} {{ $cashproduct->product->model_name }}</td>
-                                                <td>{{ number_format($cashproduct->sales_price, 0, '.', ' ') }}</td>
-                                                <td>{{ $cashproduct->amount }}</td>
-                                                <td>{{ number_format($cashproduct->amount*$cashproduct->sales_price, 0, '.', ' ') }}</td>
-                                                <td>
-                                                    <button data-id="{{ $cashproduct->id }}" type="button" class="btn btn-outline-danger btn-sm btnDelete" data-bs-toggle="modal" data-bs-target="#deleteModal" >
-                                                        <i class="bx bxs-trash me-1"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
+                                            @if($cashproduct->check_status == 0)
+                                                <tr>
+                                                    <td>{{ $loop->iteration }}</td>
+                                                    <td>{{ $cashproduct->product->type->type_name }} {{ $cashproduct->product->brand->brand_name }} {{ $cashproduct->product->model_name }}</td>
+                                                    <td>{{ number_format($cashproduct->sales_price, 0, '.', ' ') }}</td>
+                                                    <td>{{ $cashproduct->amount }}</td>
+                                                    <td>{{ number_format($cashproduct->amount*$cashproduct->sales_price, 0, '.', ' ') }}</td>
+                                                    <td>
+                                                        <button data-id="{{ $cashproduct->id }}" type="button" class="btn btn-outline-danger btn-sm btnDelete" data-bs-toggle="modal" data-bs-target="#deleteModal" >
+                                                            <i class="bx bxs-trash me-1"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            @endif
                                         @endforeach
                                         </tbody>
                                     </table>
@@ -293,7 +301,9 @@
                 let pay_plastic = $("#pay_plastic").val();
                 let discount_value =   $('#discount_value').val();
                 let total_sales = $("#total_sales").val();
-                let diff_pay = total_sales-discount_value-pay_cash-pay_plastic;
+                let final_sales = $("#final_sales").val();
+                let diff_pay = final_sales - pay_cash - pay_plastic;
+                console.log(diff_pay);
                 if( parseFloat(diff_pay) < 0 )
                 {
                     Swal.fire({
@@ -318,7 +328,8 @@
                 let pay_cash = $("#pay_cash").val();
                 let discount_value =   $('#discount_value').val();
                 let total_sales = $("#total_sales").val();
-                let diff_pay = total_sales-discount_value-pay_cash-pay_plastic;
+                let final_sales = $("#final_sales").val();
+                let diff_pay = final_sales - pay_cash - pay_plastic;
                 if( parseFloat(diff_pay) < 0 )
                 {
                     Swal.fire({

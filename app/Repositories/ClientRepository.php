@@ -1,10 +1,16 @@
 <?php
 namespace App\Repositories;
 
+use App\Models\Client;
 use App\Repositories\Interfaces\ClientRepositoryInterfaces;
 
 class ClientRepository implements ClientRepositoryInterfaces
 {
+    protected Client $client;
+    public function __construct(Client $client)
+    {
+        $this->client = $client;
+    }
 
     public function all()
     {
@@ -18,7 +24,7 @@ class ClientRepository implements ClientRepositoryInterfaces
 
     public function store($data)
     {
-        // TODO: Implement store() method.
+       return $this->client->create($data);
     }
 
     public function update($data, $id)
@@ -29,5 +35,9 @@ class ClientRepository implements ClientRepositoryInterfaces
     public function delete($id)
     {
         // TODO: Implement delete() method.
+    }
+    public function last($user_id)
+    {
+        return $this->client->where('user_id', $user_id)->latest()->first();
     }
 }

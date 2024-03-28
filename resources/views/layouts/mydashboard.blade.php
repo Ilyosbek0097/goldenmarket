@@ -207,7 +207,7 @@
                             <input id="branch_name"
                                    type="text"
                                    class="form-control border-0 shadow-none" readonly
-                                   value="Filiali: {{ auth()->user()->branch->name }} "
+                                   value="Filiali: {{ auth()->user()->branch->name ?? '' }} "
                                    aria-label="Search..."
                             />
 

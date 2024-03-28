@@ -33,4 +33,11 @@ interface PayListRepositoryInterfaces
      */
     public function delete($id);
 
+    /**
+     * @param $status
+     * @param $tip
+     * @return mixed
+     */
+    public function payTotal($status, $tip);
+
 }

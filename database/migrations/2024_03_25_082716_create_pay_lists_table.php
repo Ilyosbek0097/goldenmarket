@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('check_status');
             $table->integer('insert_user_id');
             $table->integer('update_user_id')->nullable();
+            $table->integer('branch_id');
+            $table->integer('output_type_id')->nullable();
             $table->string('comment');
             $table->timestamps();
         });

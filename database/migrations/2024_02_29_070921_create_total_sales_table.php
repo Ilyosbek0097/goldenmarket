@@ -22,6 +22,7 @@ return new class extends Migration
             $table->bigInteger('client_id')->nullable();
             $table->bigInteger('caller_id')->nullable();
             $table->bigInteger('user_id');
+            $table->integer('branch_id');
             $table->timestamps();
         });
     }

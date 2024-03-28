@@ -5,6 +5,7 @@ use App\Http\Controllers\CashSaleController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CurrencyController;
 use App\Http\Controllers\MarkController;
+use App\Http\Controllers\OutputTypeController;
 use App\Http\Controllers\PayListController;
 use App\Http\Controllers\ProductNameController;
 use App\Http\Controllers\SupplierController;
@@ -66,6 +67,8 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function 
     Route::resource('marks', MarkController::class);
     Route::resource('currencys', CurrencyController::class);
     Route::resource('users', UserController::class);
+    Route::resource('outputtypes', OutputTypeController::class);
+
 
 });
 //Super User

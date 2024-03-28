@@ -1,5 +1,5 @@
 @extends('layouts.mydashboard')
-@section('title', 'Product Sales')
+@section('title', 'PayList')
 @section('content')
     <div class="row">
         <div class="col-lg-12 mb-4 order-0">
@@ -8,12 +8,12 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-12 text-end">
-                                    <a href="{{ route('cashsales.create') }}" class="btn btn-primary"><i class="bx bx-plus align-middle" style="font-size: 26px"></i> Yangi Qo'shish</a>
+                                    <a href="{{ route('paylists.create') }}" class="btn btn-primary"><i class="bx bx-plus align-middle" style="font-size: 26px"></i> Yangi Qo'shish</a>
                                 </div>
 
                                 <div class="col-lg-12 mt-4">
                                     <div class="card">
-                                        <h5 class="card-header">Sotilgan Maxsulotlar</h5>
+                                        <h5 class="card-header">Kassa</h5>
                                         <div class="table-responsive text-nowrap">
                                             <div class="offset-md-1 col-md-10">
                                                 @if($message = session()->get('success'))
@@ -29,41 +29,35 @@
                                                     </div>
                                                 @endif
                                             </div>
-                                            <table class="table datatable" style="font-size: 12px;">
-                                                <thead class="table-light" >
-                                                <tr>
-                                                    <th>№</th>
-                                                    <th>Invoice Raqami</th>
-                                                    <th>Jami Savdo UZS</th>
-                                                    <th>Chegirma %</th>
-                                                    <th>Chegirma Qiymati UZS</th>
-                                                    <th>Sotilgan Narx UZS</th>
-                                                    <th>Sotuvchi</th>
-                                                    <th>Filiali</th>
-                                                    <th>Kim Tomonidan Kelgan</th>
-                                                    <th>Mijoz</th>
-                                                    <th>Amallar</th>
-                                                </tr>
-                                                </thead>
-                                                <tbody class="table-border-bottom-0 text-center">
-                                                    @foreach($totalSaleAll as $totalSale)
-                                                        <tr>
-                                                            <td>{{ $loop->iteration }}</td>
-                                                            <td><a href="{{ route('cashsales.show', $totalSale->sales_order) }}" class="badge bg-primary">№ {{ $totalSale->sales_order }}</a></td>
-                                                            <td>{{ number_format($totalSale->total_sales, 0, '.', ' ') }} </td>
-                                                            <td>{{ $totalSale->discount }}</td>
-                                                            <td>{{ number_format($totalSale->total_sales * ($totalSale->discount/100), 0, '.', ' ') }}</td>
-                                                            <td>{{ number_format($totalSale->final_sales, 0, '.', ' ' ) }}</td>
-                                                            <td>{{ $totalSale->user->name }}</td>
-                                                            <td>{{ $totalSale->branch->name }}</td>
-                                                            <td>{{ $totalSale->user->name ?? '' }}</td>
-                                                            <td>{{ $totalSale->client ? $totalSale->client->full_name : '' }}</td>
-                                                            <td>{{ $totalSale->canceled ?? '' }}</td>
-                                                        </tr>
-                                                    @endforeach
-                                                </tbody>
-                                            </table>
-                                            <div class="pagination justify-content-end mt-3 mb-3">
+                                            <div class="row">
+                                                <div class="offset-md-1 col-md-10">
+                                                    <table class="table-striped datatable">
+                                                        <thead>
+                                                            <tr>
+                                                                <th>№</th>
+                                                                <th>Sana</th>
+                                                                <th>Summa Turi</th>
+                                                                <th>Summa</th>
+                                                                <th>Holati</th>
+                                                                <th>Izoxi</th>
+                                                                <th>Amal</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach($payListAll as $pay)
+                                                                <tr>
+                                                                    <td>{{ $loop->iteration }}</td>
+                                                                    <td>{{ $pay->date }}</td>
+                                                                    <td> <span class="badge bg-{{ $pay->pay_type == 'naqd' ? 'success' : 'warning'  }}"> {{ $pay->pay_type }}</span></td>
+                                                                    <td>{{ number_format($pay->pay_sum, 0, '.', ' ') }}</td>
+                                                                    <td><span class="badge rounded-pill bg-{{ $pay->in_out_status == 1 ? 'danger' : 'primary' }}">{{ $pay->in_out_status == 1 ? 'Chiqim' : 'Kirim' }}</span> </td>
+                                                                    <td>{{ $pay->comment}}</td>
+                                                                    <td>{{ $pay->check_status}}</td>
+                                                                </tr>
+                                                            @endforeach
+                                                        </tbody>
+                                                    </table>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

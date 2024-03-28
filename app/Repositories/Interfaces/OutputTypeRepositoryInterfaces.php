@@ -1,7 +1,7 @@
 <?php
 namespace App\Repositories\Interfaces;
 
-interface ClientRepositoryInterfaces
+interface OutputTypeRepositoryInterfaces
 {
     /**
      * @return mixed
@@ -32,12 +32,5 @@ interface ClientRepositoryInterfaces
      * @return mixed
      */
     public function delete($id);
-
-    /**
-     * @param $user_id
-     * @return mixed
-     */
-    public function last($user_id);
-
 
 }

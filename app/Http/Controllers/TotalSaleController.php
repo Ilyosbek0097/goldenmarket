@@ -4,18 +4,31 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\TotalSaleStoreRequest;
 use App\Models\TotalSale;
+use App\Repositories\Interfaces\CashSalesRepositoryInterfaces;
+use App\Repositories\Interfaces\ClientRepositoryInterfaces;
 use App\Repositories\Interfaces\PayListRepositoryInterfaces;
 use App\Repositories\Interfaces\TotalSaleRepositoryInterfaces;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TotalSaleController extends Controller
 {
     protected TotalSaleRepositoryInterfaces $totalSaleRepository;
     protected PayListRepositoryInterfaces $payListRepository;
-    public function __construct(TotalSaleRepositoryInterfaces $totalSaleRepository, PayListRepositoryInterfaces $payListRepository)
+    protected ClientRepositoryInterfaces $clientRepository;
+    protected CashSalesRepositoryInterfaces $cashSalesRepository;
+    public function __construct(
+            TotalSaleRepositoryInterfaces $totalSaleRepository,
+            PayListRepositoryInterfaces $payListRepository,
+            ClientRepositoryInterfaces $clientRepository,
+            CashSalesRepositoryInterfaces $cashSalesRepository,
+
+        )
     {
         $this->totalSaleRepository = $totalSaleRepository;
         $this->payListRepository = $payListRepository;
+        $this->clientRepository = $clientRepository;
+        $this->cashSalesRepository = $cashSalesRepository;
     }
 
     /**
@@ -40,79 +53,99 @@ class TotalSaleController extends Controller
     public function store(TotalSaleStoreRequest $request)
     {
 
-       $dataTotalSale = [];
-       $dataPayList = [];
-       $dataClient = [];
-       $requestAll = $request->all();
-       $dataTotalSale = [
-           'sales_order' =>  $requestAll['sales_order'],
-           'total_sales' => $requestAll['total_sales'],
-           'discount' => $requestAll['discount_id'],
-           'final_sales' => $requestAll['final_sales'],
-           'caller_id' => $requestAll['user_id'] ?? '',
-           'user_id' => auth()->id(),
-           'client_id' => 0,
-       ];
-       if($requestAll['full_name'] != '')
-       {
-           $dataClient = [
-               'full_name' => $requestAll['full_name'],
-               'address' => $requestAll['address'],
-               'phone1' => $requestAll['phone1'],
-               'phone2' => $requestAll['phone2']
-           ];
-       }
+//       return $this->execute( function() use ($request){
 
-
-       $this->totalSaleRepository->store($dataTotalSale);
-
-       $lastTotalSale =  $this->totalSaleRepository->last($requestAll['sales_order']);
-
-       if($requestAll['pay_cash'] > 0 && $requestAll['pay_plastic'] >0)
-       {
-           $dataPayList_cash =
-               [
-                   'total_sale_id' => $lastTotalSale->id,
-                   'date' =>date('Y-m-d'),
-                   'pay_sum' => $requestAll['pay_cash'],
-                   'pay_type' => 'naqd',
-                   'in_out_status' => '0',
-                   'check_status' => '0',
-                   'insert_user_id' => auth()->id(),
-                   'comment' => ''
+           $dataTotalSale = [];
+           $dataPayList = [];
+           $dataClient = [];
+           $requestAll = $request->all();
+           $client = 0;
+           if($requestAll['full_name'] != '')
+           {
+               $dataClient = [
+                   'full_name' => $requestAll['full_name'],
+                   'address' => $requestAll['address'],
+                   'phone1' => $requestAll['phone1'],
+                   'phone2' => $requestAll['phone2'],
+                   'user_id' => auth()->id(),
+                   'check_status' => 1
                ];
-           $this->payListRepository->store($dataPayList_cash);
-           $dataPayList_plastic =
-               [
+               $this->clientRepository->store($dataClient);
+
+               $lastClient = $this->clientRepository->last(auth()->id());
+               $client = $lastClient->client_id;
+           }
+
+
+
+           $dataTotalSale = [
+               'sales_order' =>  $requestAll['sales_order'],
+               'total_sales' => $requestAll['total_sales'],
+               'discount' => $requestAll['discount_id'],
+               'final_sales' => $requestAll['final_sales'],
+               'caller_id' => $requestAll['user_id'] ?? '',
+               'user_id' => auth()->id(),
+               'branch_id' => auth()->user()->branch_id,
+               'client_id' => $client
+           ];
+
+
+
+           $this->totalSaleRepository->store($dataTotalSale);
+
+           $lastTotalSale =  $this->totalSaleRepository->last($requestAll['sales_order']);
+
+           if($requestAll['pay_cash'] > 0 && $requestAll['pay_plastic'] >0)
+           {
+               $dataPayList_cash =
+                   [
+                       'total_sale_id' => $lastTotalSale->id,
+                       'date' =>date('Y-m-d'),
+                       'pay_sum' => $requestAll['pay_cash'],
+                       'pay_type' => 'naqd',
+                       'in_out_status' => '0',
+                       'check_status' => '1',
+                       'insert_user_id' => auth()->id(),
+                       'branch_id' => auth()->user()->branch_id,
+                       'comment' => ''
+                   ];
+               $this->payListRepository->store($dataPayList_cash);
+               $dataPayList_plastic =
+                   [
+                       'total_sale_id' => $lastTotalSale->id,
+                       'date' => date('Y-m-d'),
+                       'pay_sum' => $requestAll['pay_plastic'],
+                       'pay_type' => 'plastik',
+                       'in_out_status' => '0',
+                       'check_status' => '1',
+                       'insert_user_id' => auth()->id(),
+                       'branch_id' => auth()->user()->branch_id,
+                       'comment' => ''
+                   ];
+               $this->payListRepository->store($dataPayList_plastic);
+
+           }
+           else{
+
+               $dataPayList = [
                    'total_sale_id' => $lastTotalSale->id,
                    'date' => date('Y-m-d'),
-                   'pay_sum' => $requestAll['pay_plastic'],
-                   'pay_type' => 'plastik',
+                   'pay_sum' => $requestAll['pay_cash'] ==0 ? $requestAll['pay_plastic'] : $requestAll['pay_cash'],
+                   'pay_type' => $requestAll['pay_cash'] ==0 ? 'plastik' :'naqd',
                    'in_out_status' => '0',
-                   'check_status' => '0',
+                   'check_status' => '1',
                    'insert_user_id' => auth()->id(),
+                   'branch_id' => auth()->user()->branch_id,
                    'comment' => ''
                ];
-           $this->payListRepository->store($dataPayList_plastic);
+               $this->payListRepository->store($dataPayList);
+           }
+           $dataCashSalesUpdate = ['check_status' => 1];
+            $this->cashSalesRepository->update($dataCashSalesUpdate, $requestAll['sales_order']);
 
-       }
-       else{
+           return redirect()->route('cashsales.index')->with('success', "Ma'lumotlar Muvaffaqiyatli Kiritildi!");
 
-           $dataPayList = [
-               'total_sale_id' => $lastTotalSale->id,
-               'date' => date('Y-m-d'),
-               'pay_sum' => $requestAll['pay_cash'] ==0 ? $requestAll['pay_plastic'] : $requestAll['pay_cash'],
-               'pay_type' => $requestAll['pay_cash'] ==0 ? 'plastic' :'naqd',
-               'in_out_status' => '0',
-               'check_status' => '0',
-               'insert_user_id' => auth()->id(),
-               'comment' => ''
-           ];
-           $this->payListRepository->store($dataPayList);
-       }
-
-
-
+//       });
     }
 
     /**
@@ -145,5 +178,19 @@ class TotalSaleController extends Controller
     public function destroy(TotalSale $totalSale)
     {
         //
+    }
+    public function execute(callable $callback)
+    {
+        DB::beginTransaction();
+        try{
+            $result = $callback();
+            DB::commit();
+            return $result;
+        }
+        catch (\Exception $e)
+        {
+            DB::rollBack();
+            return  redirect()->back()->with('error', "Xatolik Sodir Bo'ldi")->withErrors($e->getMessage());
+        }
     }
 }

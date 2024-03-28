@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\CashSaleStoreRequest;
 use App\Models\CashSale;
 use App\Repositories\Interfaces\CashSalesRepositoryInterfaces;
+use App\Repositories\Interfaces\TotalSaleRepositoryInterfaces;
 use App\Repositories\Interfaces\UserRepositoryInterfaces;
 use App\Repositories\Interfaces\WarehouseRepositoryInterfaces;
 use Illuminate\Http\Request;
@@ -14,15 +15,18 @@ class CashSaleController extends Controller
     protected CashSalesRepositoryInterfaces $cashsalesRepository;
     protected WarehouseRepositoryInterfaces $warehouseRepository;
     protected UserRepositoryInterfaces $userRepository;
+    protected TotalSaleRepositoryInterfaces $totalSaleRepository;
     public function __construct(
             CashSalesRepositoryInterfaces $cashsalesRepository,
             WarehouseRepositoryInterfaces $warehouseRepository,
-            UserRepositoryInterfaces $userRepository
+            UserRepositoryInterfaces $userRepository,
+            TotalSaleRepositoryInterfaces $totalSaleRepository,
         )
     {
         $this->cashsalesRepository = $cashsalesRepository;
         $this->warehouseRepository = $warehouseRepository;
         $this->userRepository = $userRepository;
+        $this->totalSaleRepository = $totalSaleRepository;
 
     }
 
@@ -31,7 +35,9 @@ class CashSaleController extends Controller
      */
     public function index()
     {
-        return view('user.cashsale.index');
+//        $cashSaleAll = $this->cashsalesRepository->all();
+        $totalSaleAll = $this->totalSaleRepository->all();
+        return view('user.cashsale.index', compact('totalSaleAll'));
     }
 
     /**
@@ -67,7 +73,8 @@ class CashSaleController extends Controller
      */
     public function show($id)
     {
-        //
+        $cashsaleOne = $this->cashsalesRepository->get($id);
+        return view('user.cashsale.show', compact('cashsaleOne'));
     }
 
     /**

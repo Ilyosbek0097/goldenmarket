@@ -21,7 +21,7 @@ class CashSalesRepository implements CashSalesRepositoryInterfaces
     {
         if(auth()->user()->role == 'user')
         {
-            return $this->cashsale->where('user_id', auth()->id())->where('check_status', 0)->orderBy('id', 'DESC')->get();
+            return $this->cashsale->where('user_id', auth()->id())->whereIn('check_status', [0,1])->orderBy('id', 'DESC')->get();
 
         }
         else{
@@ -30,7 +30,7 @@ class CashSalesRepository implements CashSalesRepositoryInterfaces
     }
     public function get($id)
     {
-        return $this->cashsale->findOrFail($id);
+        return $this->cashsale->where('sales_order', $id)->where('check_status', 1)->get();
     }
     public function store($data)
     {
@@ -99,7 +99,7 @@ class CashSalesRepository implements CashSalesRepositoryInterfaces
     }
     public function update($data, $id)
     {
-
+        return $this->cashsale->where('sales_order', $id)->update($data);
     }
     public function delete($id)
     {

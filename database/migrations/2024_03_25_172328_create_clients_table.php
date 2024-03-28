@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('phone2')->nullable();
             $table->string('passport_image')->nullable();
             $table->integer('user_id');
+            $table->integer('check_status')->default(0);
             $table->timestamps();
         });
     }

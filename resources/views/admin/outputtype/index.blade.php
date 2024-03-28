@@ -1,5 +1,5 @@
 @extends('layouts.mydashboard')
-@section('title', 'Product Sales')
+@section('title', 'Output Type')
 @section('content')
     <div class="row">
         <div class="col-lg-12 mb-4 order-0">
@@ -8,12 +8,12 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-12 text-end">
-                                    <a href="{{ route('cashsales.create') }}" class="btn btn-primary"><i class="bx bx-plus align-middle" style="font-size: 26px"></i> Yangi Qo'shish</a>
+                                    <a href="{{ route('outputtypes.create') }}" class="btn btn-primary"><i class="bx bx-plus align-middle" style="font-size: 26px"></i> Yangi Qo'shish</a>
                                 </div>
 
                                 <div class="col-lg-12 mt-4">
                                     <div class="card">
-                                        <h5 class="card-header">Sotilgan Maxsulotlar</h5>
+                                        <h5 class="card-header">Tiplar Ro'yxati</h5>
                                         <div class="table-responsive text-nowrap">
                                             <div class="offset-md-1 col-md-10">
                                                 @if($message = session()->get('success'))
@@ -29,41 +29,32 @@
                                                     </div>
                                                 @endif
                                             </div>
-                                            <table class="table datatable" style="font-size: 12px;">
-                                                <thead class="table-light" >
+                                            <table class="table datatable">
+                                                <thead class="table-light ">
                                                 <tr>
                                                     <th>№</th>
-                                                    <th>Invoice Raqami</th>
-                                                    <th>Jami Savdo UZS</th>
-                                                    <th>Chegirma %</th>
-                                                    <th>Chegirma Qiymati UZS</th>
-                                                    <th>Sotilgan Narx UZS</th>
-                                                    <th>Sotuvchi</th>
+                                                    <th>Nomi</th>
                                                     <th>Filiali</th>
-                                                    <th>Kim Tomonidan Kelgan</th>
-                                                    <th>Mijoz</th>
                                                     <th>Amallar</th>
                                                 </tr>
                                                 </thead>
-                                                <tbody class="table-border-bottom-0 text-center">
-                                                    @foreach($totalSaleAll as $totalSale)
-                                                        <tr>
-                                                            <td>{{ $loop->iteration }}</td>
-                                                            <td><a href="{{ route('cashsales.show', $totalSale->sales_order) }}" class="badge bg-primary">№ {{ $totalSale->sales_order }}</a></td>
-                                                            <td>{{ number_format($totalSale->total_sales, 0, '.', ' ') }} </td>
-                                                            <td>{{ $totalSale->discount }}</td>
-                                                            <td>{{ number_format($totalSale->total_sales * ($totalSale->discount/100), 0, '.', ' ') }}</td>
-                                                            <td>{{ number_format($totalSale->final_sales, 0, '.', ' ' ) }}</td>
-                                                            <td>{{ $totalSale->user->name }}</td>
-                                                            <td>{{ $totalSale->branch->name }}</td>
-                                                            <td>{{ $totalSale->user->name ?? '' }}</td>
-                                                            <td>{{ $totalSale->client ? $totalSale->client->full_name : '' }}</td>
-                                                            <td>{{ $totalSale->canceled ?? '' }}</td>
-                                                        </tr>
-                                                    @endforeach
+                                                <tbody class="table-border-bottom-0">
+                                                @foreach($outputTypeAll as $type)
+                                                    <tr>
+                                                        <td>{{ $loop->iteration }}</td>
+                                                        <td>{{ $type->name }}</td>
+                                                        <td>{{ $type->branch_id == 0 ? 'Hamma Filiallarga Tegishli': $type->branch ->name }}</td>
+                                                        <td>
+                                                            <a class="btn btn-success btn-sm" href="{{ route('outputtypes.show',$type->id ) }}"><i class="bx bx-show me-1"></i> Ko'rish</a>
+                                                            <a class="btn btn-info btn-sm" href=" {{ route('outputtypes.edit', $type->id) }}"><i class="bx bx-edit-alt me-1"></i> Tahrirlash</a>
+                                                            <button data-id="{{ $type->id }}" type="button" class="btn btn-danger btn-sm btnDelete" data-bs-toggle="modal" data-bs-target="#modalTop" ><i class="bx bx-trash me-1"></i> O'chirish</button>
+                                                        </td>
+                                                    </tr>
+                                                @endforeach
                                                 </tbody>
                                             </table>
                                             <div class="pagination justify-content-end mt-3 mb-3">
+{{--                                                {{ $typeAll->links() }}--}}
                                             </div>
                                         </div>
                                     </div>
@@ -106,7 +97,7 @@
                 e.preventDefault();
                 elemtID = $(this).data('id');
                 // $("#branchId").val(elemtID);
-               $("#confirmForm").attr('action', 'brands/'+elemtID);
+               $("#confirmForm").attr('action', 'outputtypes/'+elemtID);
             })
         });
     </script>

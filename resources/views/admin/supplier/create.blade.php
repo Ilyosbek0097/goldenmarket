@@ -54,7 +54,7 @@
                             </div>
                             <div class="mb-3">
                                 <label class="form-label" for="code">Contagent Kodi</label>
-                                <input type="text" maxlength="5" class="form-control @error('code') is-invalid @enderror" name="code"  value="{{ StrToUpper(\Illuminate\Support\Str::random(5)) }}">
+                                <input readonly type="text" maxlength="5" class="form-control @error('code') is-invalid @enderror" name="code"  value="{{ StrToUpper(\Illuminate\Support\Str::random(5)) }}">
                                 @error('code')
                                 <div class="mt-2 text-danger" role="alert">
                                     {{ $message }}

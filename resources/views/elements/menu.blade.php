@@ -60,6 +60,12 @@
             <div data-i18n="Analytics">Sotuvchilar</div>
         </a>
     </li>
+    <li class="menu-item {{ request()->is('admin/outputtypes') ? 'active' : '' }}">
+        <a href="{{ route('outputtypes.index') }}" class="menu-link">
+            <i class="menu-icon tf-icons bx bxs-backpack"></i>
+            <div data-i18n="Analytics">Chiqimlar Ro'yxati</div>
+        </a>
+    </li>
 {{--    <li class="menu-item {{ request()->is('admin/teachers') ? 'active' : '' }}">--}}
 {{--        <a href="{{ route('teachers.index') }}" class="menu-link">--}}
 {{--            <i class="menu-icon tf-icons bx bxs-group"></i>--}}
@@ -87,6 +93,12 @@
         <a href="{{ route('cashsales.index') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bxs-cart"></i>
             <div data-i18n="Analytics">Maxsulot Sotish</div>
+        </a>
+    </li>
+    <li class="menu-item {{ request()->is('user/paylists') ? 'active' : '' }}">
+        <a href="{{ route('paylists.index') }}" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-money"></i>
+            <div data-i18n="Analytics">Kassa</div>
         </a>
     </li>
 @endif

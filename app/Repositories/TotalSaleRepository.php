@@ -13,7 +13,7 @@ class TotalSaleRepository implements TotalSaleRepositoryInterfaces
 
     public function all()
     {
-        // TODO: Implement all() method.
+        return $this->totalSale->where('canceled', '0')->where('branch_id', auth()->user()->branch_id)->orderBy('id', 'DESC')->get();
     }
 
     public function get($id)

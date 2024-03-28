@@ -29,36 +29,51 @@
                                                     </div>
                                                 @endif
                                             </div>
-                                            <div class="row">
-                                                <div class="offset-md-1 col-md-10">
-                                                    <table class="table-striped datatable">
-                                                        <thead>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <table class="table-striped table-bordered datatable" style="font-size: 12px">
+                                                            <thead>
                                                             <tr>
                                                                 <th>№</th>
                                                                 <th>Sana</th>
                                                                 <th>Summa Turi</th>
                                                                 <th>Summa</th>
-                                                                <th>Holati</th>
+                                                                <th>Turi</th>
+                                                                <th>Chiqim Sababi</th>
                                                                 <th>Izoxi</th>
-                                                                <th>Amal</th>
+                                                                <th class="text-center">Amal</th>
                                                             </tr>
-                                                        </thead>
-                                                        <tbody>
+                                                            </thead>
+                                                            <tbody>
                                                             @foreach($payListAll as $pay)
                                                                 <tr>
                                                                     <td>{{ $loop->iteration }}</td>
                                                                     <td>{{ $pay->date }}</td>
                                                                     <td> <span class="badge bg-{{ $pay->pay_type == 'naqd' ? 'success' : 'warning'  }}"> {{ $pay->pay_type }}</span></td>
                                                                     <td>{{ number_format($pay->pay_sum, 0, '.', ' ') }}</td>
-                                                                    <td><span class="badge rounded-pill bg-{{ $pay->in_out_status == 1 ? 'danger' : 'primary' }}">{{ $pay->in_out_status == 1 ? 'Chiqim' : 'Kirim' }}</span> </td>
+                                                                    <td><span class="badge bg-label-{{ $pay->in_out_status == 1 ? 'danger' : 'success' }}">{{ $pay->in_out_status == 1 ? 'Chiqim' : 'Kirim' }}</span> </td>
+                                                                    <td>{{ $pay->outputtype ? $pay->outputtype->name : 'Kirim Qilindi' }}</td>
                                                                     <td>{{ $pay->comment}}</td>
-                                                                    <td>{{ $pay->check_status}}</td>
+                                                                    <td class="text-center">
+                                                                        @if($pay->check_status == 0)
+                                                                            <span class="badge bg-label-warning">
+                                                                                <span class="spinner-grow spinner-grow-sm text-warning" role="status" aria-hidden="true"></span>
+                                                                            </span>
+                                                                        @elseif($pay->check_status == 1)
+                                                                            <span class="badge bg-label-success"><i class="bx bx-check-circle"></i></span>
+                                                                        @else
+                                                                            <span class="badge bg-label-danger"><i class="bx bx-x-circle"></i></span>
+                                                                        @endif
+                                                                    </td>
                                                                 </tr>
                                                             @endforeach
-                                                        </tbody>
-                                                    </table>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
                                                 </div>
                                             </div>
+
                                         </div>
                                     </div>
                                 </div>

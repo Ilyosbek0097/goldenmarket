@@ -24,7 +24,7 @@ class OutputTypeRepository implements OutputTypeRepositoryInterfaces
 
     public function get($id)
     {
-        // TODO: Implement get() method.
+        return $this->outputType->find($id);
     }
 
     public function store($data)

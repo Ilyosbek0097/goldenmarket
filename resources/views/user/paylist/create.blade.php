@@ -4,6 +4,20 @@
 @endsection
 @section('content')
     <div class="row">
+        <div class="offset-md-1 col-md-10">
+            @if($message = session()->get('success'))
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    {{ $message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+            @if($message = session()->get('error'))
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    {{ $message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+        </div>
         <div class="col-lg-12">
             @error('error')
             <div class="alert alert-danger alert-dismissible" role="alert">
@@ -16,7 +30,7 @@
             <div class="card">
                 <div class="row">
                     <div class="col-lg-12 text-end mt-1 mr-2 mb-1">
-                        <a href="{{ url()->previous() }}" class="btn btn-primary ml-2"><i class="bx bx-arrow-back align-middle" style="font-size: 26px"></i> Ortga Qaytish</a>
+                        <a href="{{route('paylists.index') }}" class="btn btn-primary ml-2"><i class="bx bx-arrow-back align-middle" style="font-size: 26px"></i> Ortga Qaytish</a>
                     </div>
                 </div>
             </div>
@@ -32,13 +46,18 @@
 
                             <div>
                                 <div class="mb-3">
-    {{--                                {{ dd( $errors->all()) }}--}}
-        {{--                            {{ $incomeDiffCash = $incomePayAllCash - $outputPayAllCash }}--}}
-                                    <input type="hidden" id="pay_cash" value="{{ $incomePayAllCash - $outputPayAllCash }}">
-                                    <input type="hidden" id="pay_plastic" value="{{ $incomePayAllPlastic - $outputPayAllPlastic }}">
+                                    <input type="hidden" id="pay_cash" value="{{ $incomePayAllCash - $outputPayAllCash - $warningOutputCash}}">
+                                    <input type="hidden" id="pay_plastic" value="{{ $incomePayAllPlastic - $outputPayAllPlastic - $warningOutputPlastic }}">
 
-                                    <span class="text-success">Jami Naqd: <span >{{ number_format($incomePayAllCash - $outputPayAllCash, 0, '.', ' ')  }}</span> </span>
-                                    <span class="text-danger" style="margin-left: 100px">Jami Plastik: <span id="pay_plastic">{{ number_format($incomePayAllPlastic - $outputPayAllPlastic, 0, '.', ' ') }}</span> </span><br>
+                                    <span class="text-success">Jami Naqd: <span >{{ number_format($incomePayAllCash - $outputPayAllCash-$warningOutputCash, 0, '.', ' ')  }}</span> </span>
+                                    <span class="text-primary" style="margin-left: 100px;">Jami Plastik: <span id="pay_plastic">{{ number_format($incomePayAllPlastic - $outputPayAllPlastic-$warningOutputPlastic, 0, '.', ' ') }}</span> </span><br>
+                                    <hr>
+                                    <span style="margin-right: 2px" class="spinner-grow spinner-grow-sm text-warning" role="status" aria-hidden="true"></span>
+                                    <span class="text-success" style="font-size: small">Inkass Naqd: <span >{{ number_format($warningOutputCash, 0, '.', ' ')  }}</span> </span>
+
+                                    <span style="margin-left: 12px; margin-right: 5px" class="spinner-grow spinner-grow-sm text-warning" role="status" aria-hidden="true"></span>
+                                    <span class="text-primary" style="font-size: small" >Inkassa Plastik: <span id="pay_plastic">{{ number_format($warningOutputPlastic, 0, '.', ' ') }}</span> </span><br>
+
                                 </div>
                                 <label class="form-label" for="all_cash">Jami Kassa</label>
                                 <input type="text" id="all_cash" class="form-control" value="{{ number_format($incomePayAllCash - $outputPayAllCash + $incomePayAllPlastic - $outputPayAllPlastic, 0, '.', ' ') }}">
@@ -48,7 +67,7 @@
                                <select class="form-control @error('output_type_id') is-invalid @enderror select2" id="output_type_id" name="output_type_id">
                                    <option value="">-- Chiqim Sababini Tanlang --</option>
                                    @foreach($outputTypeAll as $type)
-                                       <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                        <option data-value="@if($type->check_status == 1) {{'1'}} @elseif($type->check_status==2) {{ '2' }} @else {{ '0' }} @endif" value="{{ $type->id }}">{{ $type->name }}</option>
                                    @endforeach
                                </select>
                                 @error('output_type_id')
@@ -56,6 +75,7 @@
                                         {{ $message }}
                                     </div>
                                 @enderror
+
                             </div>
                             <div>
                                 <label class="form-label" for="pay_type">Summa Turini Tanlang</label>
@@ -101,32 +121,46 @@
             <div class="card mb-4">
                 <h5 class="card-header">Chiqimlar Ro'yxati</h5>
                 <div class="card-body demo-vertical-spacing demo-only-element">
-                    <table class="table-striped datatable text-center" style="font-size: small">
+                    <table class="table-striped table-bordered datatable text-center" style="font-size: 10px">
                         <thead>
                             <tr>
                                 <td>#ID</td>
                                 <td>Sana</td>
+                                <td>Holati</td>
                                 <td>Summa Turi</td>
                                 <td>Summa</td>
-                                <td>Status</td>
+                                <td>Chiqim Sababi</td>
                                 <td>Izoxi</td>
                                 <td>Amallar</td>
                             </tr>
                         </thead>
                         <tbody>
                           @foreach($outputPayAll as $pay)
-                              @if($pay->in_out_status == 1 )
-                                  <tr>
-                                      <td>{{$pay->id}}</td>
-                                      <td>{{ \Illuminate\Support\Carbon::create($pay->date)->format('d-M-Y') }}</td>
-                                      <td> <span class="badge bg-{{ $pay->pay_type == 'naqd' ? 'success' : 'warning'  }}"> {{ $pay->pay_type }}</span></td>
-                                      <td>{{ number_format($pay->pay_sum, 0, '.', ' ') }}</td>
-                                      <td> {{ $pay->check_status }}</td>
-                                      <td>{{ $pay->comment }}</td>
-                                      <td>
-                                          <a class="btn btn-danger btn-sm" href=" {{ route('paylists.edit', $pay->id) }}"><i class="bx bx-trash me-1"></i></a>
-                                      </td>
-                                  </tr>
+                                  @if($pay->in_out_status == 1)
+                                      <tr>
+                                          <td>{{$pay->id}}</td>
+                                          <td>{{ \Illuminate\Support\Carbon::create($pay->date)->format('d-M-Y') }}</td>
+                                          <td>
+                                              @if($pay->check_status == 0)
+                                                  <span class="spinner-grow spinner-grow-sm text-warning" role="status" aria-hidden="true"></span>
+                                              @elseif($pay->check_status == 1)
+                                                  <span class="badge bg-label-success"><i class="bx bx-check-circle"></i></span>
+                                              @else
+                                                  <span class="badge bg-label-danger"><i class="bx bx-x-circle"></i></span>
+                                              @endif
+                                          </td>
+                                          <td> <span class="badge bg-{{ $pay->pay_type == 'naqd' ? 'success' : 'warning'  }}"> {{ $pay->pay_type }}</span></td>
+                                          <td>{{ number_format($pay->pay_sum, 0, '.', ' ') }}</td>
+                                          <td> {{ $pay->outputtype->name }}</td>
+                                          <td>{{ $pay->comment }}</td>
+                                          <td>
+                                              @if($pay->date == date('Y-m-d') && $pay->check_status != 2)
+                                                  <button data-id="{{ $pay->id }}" type="button" class="btn btn-sm text-danger btnDelete"  data-bs-toggle="modal" data-bs-target="#modalTop" ><i class="bx bx-trash me-1"></i></button>
+                                              @else
+
+                                              @endif
+                                          </td>
+                                      </tr>
                               @endif
                           @endforeach
                         </tbody>
@@ -136,13 +170,54 @@
         </div>
 
     </div>
+    <div class="mt-3">
+        <div class="modal modal-top fade" id="modalTop" tabindex="-1"  aria-hidden="true">
+            <div class="modal-dialog">
+                <form class="modal-content" method="POST" id="confirmForm" >
+                    @csrf
+                    @method('DELETE')
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalTopTitle">Eslatma!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <p>Siz rostdan ham ushbu elementni o'chirasizmi!</p>
+                        <input type="hidden" id="branchId" >
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger">Tasdiqlash</button>
+                        <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
+                            Bekor Qilish
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
 
 @endsection
 @section('script')
     <script>
         $(document).ready(function(){
+            $(document).on('change', '#output_type_id', function(){
+               var val =$("#output_type_id").select2().find(":selected").data("value");
+               console.log(val);
+              if($.trim(val) == 1)
+              {
+                  // alert('salom');
+                 // $("#pay_type").val('naqd');
+                  $('#pay_type').val('naqd').trigger('change');
+              }
+              else if($.trim(val) == 2)
+              {
+                  $('#pay_type').val('plastik').trigger('change');
 
+              }
+              else{
+                  $('#pay_type').val('').trigger('change');
+              }
+            });
            $(document).on('blur', '#pay_sum', function (){
                var pay_type = $("#pay_type").val();
                var pay_sum = $(this).val();
@@ -188,6 +263,11 @@
              }
            });
 
+            $('.btnDelete').on('click', function (e){
+                e.preventDefault();
+                elemtID = $(this).data('id');
+                $("#confirmForm").attr('action', elemtID);
+            })
         });
     </script>
 @endsection

@@ -38,6 +38,6 @@ interface PayListRepositoryInterfaces
      * @param $tip
      * @return mixed
      */
-    public function payTotal($status, $tip);
+    public function payTotal($status, $tip, $check_status);
 
 }

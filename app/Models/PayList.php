@@ -9,4 +9,9 @@ class PayList extends Model
 {
     use HasFactory;
     protected  $guarded = [];
+
+    protected function outputtype()
+    {
+        return $this->belongsTo(OutputType::class, 'output_type_id');
+    }
 }

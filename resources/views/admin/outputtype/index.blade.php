@@ -35,6 +35,7 @@
                                                     <th>№</th>
                                                     <th>Nomi</th>
                                                     <th>Filiali</th>
+                                                    <th>Inkassa Uchunmi</th>
                                                     <th>Amallar</th>
                                                 </tr>
                                                 </thead>
@@ -44,6 +45,13 @@
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $type->name }}</td>
                                                         <td>{{ $type->branch_id == 0 ? 'Hamma Filiallarga Tegishli': $type->branch ->name }}</td>
+                                                        <td>
+                                                            @if($type->check_status == 1)
+                                                                <span class="text-success"><i class="bx bx-check-circle"></i></span>
+                                                            @else
+                                                            @endif
+
+                                                        </td>
                                                         <td>
                                                             <a class="btn btn-success btn-sm" href="{{ route('outputtypes.show',$type->id ) }}"><i class="bx bx-show me-1"></i> Ko'rish</a>
                                                             <a class="btn btn-info btn-sm" href=" {{ route('outputtypes.edit', $type->id) }}"><i class="bx bx-edit-alt me-1"></i> Tahrirlash</a>

@@ -14,7 +14,7 @@ class PayListRepository implements PayListRepositoryInterfaces
 
     public function all()
     {
-       return $this->payList->where('branch_id', auth()->user()->branch_id)->get();
+       return $this->payList->where('branch_id', auth()->user()->branch_id)->orderBy('id', 'DESC')->get();
     }
 
     public function get($id)
@@ -34,13 +34,13 @@ class PayListRepository implements PayListRepositoryInterfaces
 
     public function delete($id)
     {
-        // TODO: Implement delete() method.
+        return $this->payList->destroy($id);
     }
-    public function payTotal($status, $tip)
+    public function payTotal($status, $tip, $check_status)
     {
         return $this->payList
             ->where('in_out_status', $status)
-            ->where('check_status', 1)
+            ->where('check_status', $check_status)
             ->where('pay_type', $tip)
             ->where('branch_id', auth()->user()->branch_id)
             ->sum('pay_sum');

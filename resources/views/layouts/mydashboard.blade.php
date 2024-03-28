@@ -383,9 +383,6 @@
 
     $(".datatable").DataTable({
 
-        "order": [
-            [0, "asc"]
-        ],
         "language": {
             "search": "Qidirish: ",
             "info": "Ko'rsatilyapti _START_ dan _END_ gacha _TOTAL_ ta qatordan",
@@ -400,10 +397,8 @@
             },
         },
         processing: true,
-        responsive: true
-
-
-
+        responsive: true,
+        ordering: false,
     });
     var startPhoneMask = IMask(document.getElementById('phone1'), {
         mask: '(00) 000-00-00'

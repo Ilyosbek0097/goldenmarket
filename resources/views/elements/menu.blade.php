@@ -12,6 +12,12 @@
             <div data-i18n="Analytics">Filiallar</div>
         </a>
     </li>
+    <li class="menu-item {{ request()->is('admin/branchs') ? 'active' : '' }}">
+        <a href="{{ route('branchs.index') }}" class="menu-link">
+            <i class="menu-icon tf-icons bx bxs-badge-dollar"></i>
+            <div data-i18n="Analytics">Kassa</div>
+        </a>
+    </li>
     <li class="menu-item {{ request()->is('admin/types') ? 'active' : '' }}">
         <a href="{{ route('types.index') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-cube-alt"></i>

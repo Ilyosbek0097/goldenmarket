@@ -16,7 +16,7 @@ class SupplierRepository implements SupplierRepositoryInterfaces
 
     public function all()
     {
-        return $this->supplier->paginate(10);
+        return $this->supplier->all();
     }
 
     public function get($id)

@@ -20,7 +20,8 @@ return new class extends Migration
             $table->integer('check_status');
             $table->string('comment');
             $table->integer('user_id');
-            $table->integer('supplier_id');
+            $table->integer('branch_id')->nullable();
+            $table->integer('supplier_id')->nullable();
             $table->timestamps();
         });
     }

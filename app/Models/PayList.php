@@ -14,4 +14,8 @@ class PayList extends Model
     {
         return $this->belongsTo(OutputType::class, 'output_type_id');
     }
+    protected function branch()
+    {
+        return $this->belongsTo(Branch::class, 'branch_id');
+    }
 }

@@ -14,12 +14,19 @@ class PayListRepository implements PayListRepositoryInterfaces
 
     public function all()
     {
-       return $this->payList->where('branch_id', auth()->user()->branch_id)->orderBy('id', 'DESC')->get();
+        if (auth()->user()->role == 'user')
+        {
+            return $this->payList->where('branch_id', auth()->user()->branch_id)->orderBy('id', 'DESC')->get();
+        }
+        else{
+            return $this->payList->where('in_out_status', 1)->orderBy('id', 'DESC')->get();
+        }
+
     }
 
     public function get($id)
     {
-        // TODO: Implement get() method.
+       return $this->payList->findOrFail($id);
     }
 
     public function store($data)
@@ -29,7 +36,7 @@ class PayListRepository implements PayListRepositoryInterfaces
 
     public function update($data, $id)
     {
-        // TODO: Implement update() method.
+       return $this->payList->find($id)->update($data);
     }
 
     public function delete($id)

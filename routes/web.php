@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AddProductController;
+use App\Http\Controllers\AdminPayListController;
 use App\Http\Controllers\CashSaleController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CurrencyController;
@@ -8,6 +9,7 @@ use App\Http\Controllers\MarkController;
 use App\Http\Controllers\OutputTypeController;
 use App\Http\Controllers\PayListController;
 use App\Http\Controllers\ProductNameController;
+use App\Http\Controllers\ReportsController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\TotalSaleController;
 use App\Http\Controllers\UserController;
@@ -46,6 +48,10 @@ Route::group(['middleware' => ['auth', 'user'], 'prefix' => 'user'], function ()
     Route::resource('totalsales', TotalSaleController::class);
     Route::resource('paylists', PayListController::class);
     Route::resource('clients', ClientController::class);
+    Route::controller(ReportsController::class) ->group(function(){
+        Route::get('/index', 'index')->name('reports.index');
+        Route::get('/add_product_report', 'add_product_report')->name('reports.add_product_report');
+    });
 
 });
 // Admin Route
@@ -68,6 +74,9 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function 
     Route::resource('currencys', CurrencyController::class);
     Route::resource('users', UserController::class);
     Route::resource('outputtypes', OutputTypeController::class);
+    Route::resource('adminpaylists', AdminPayListController::class);
+    Route::post('/outputstore', [AdminPayListController::class, 'outputstore'])->name('adminpaylists.outputstore');
+
 
 
 });

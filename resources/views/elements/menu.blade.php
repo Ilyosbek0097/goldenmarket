@@ -12,24 +12,40 @@
             <div data-i18n="Analytics">Filiallar</div>
         </a>
     </li>
-    <li class="menu-item {{ request()->is('admin/branchs') ? 'active' : '' }}">
-        <a href="{{ route('branchs.index') }}" class="menu-link">
+    <li class="menu-item {{ request()->is('admin/adminpaylists') ? 'active' : '' }}">
+        <a href="{{ route('adminpaylists.index') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bxs-badge-dollar"></i>
             <div data-i18n="Analytics">Kassa</div>
         </a>
     </li>
-    <li class="menu-item {{ request()->is('admin/types') ? 'active' : '' }}">
-        <a href="{{ route('types.index') }}" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-cube-alt"></i>
-            <div data-i18n="Analytics">Maxsulot Turi</div>
+    <li class="menu-item" style="">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon tf-icons bx bx-layout"></i>
+            <div data-i18n="Layouts">Maxsulot</div>
         </a>
+
+        <ul class="menu-sub">
+            <li class="menu-item {{ request()->is('admin/types') ? 'active' : '' }}">
+                <a href="{{ route('types.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-cube-alt"></i>
+                    <div data-i18n="Analytics">Maxsulot Turi</div>
+                </a>
+            </li>
+            <li class="menu-item {{ request()->is('admin/brands') ? 'active' : '' }}">
+                <a href="{{ route('brands.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-collection"></i>
+                    <div data-i18n="Analytics">Maxsulot Brendi</div>
+                </a>
+            </li>
+            <li class="menu-item {{ request()->is('admin/productnames') ? 'active' : '' }}">
+                <a href="{{ route('productnames.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-file"></i>
+                    <div data-i18n="Analytics">Maxsulot To'liq Nomi</div>
+                </a>
+            </li>
+        </ul>
     </li>
-    <li class="menu-item {{ request()->is('admin/brands') ? 'active' : '' }}">
-        <a href="{{ route('brands.index') }}" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-collection"></i>
-            <div data-i18n="Analytics">Maxsulot Brendi</div>
-        </a>
-    </li>
+
     <li class="menu-item {{ request()->is('admin/marks') ? 'active' : '' }}">
         <a href="{{ route('marks.index') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bxl-markdown"></i>
@@ -40,12 +56,6 @@
         <a href="{{ route('currencys.index') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-money"></i>
             <div data-i18n="Analytics">Kurs</div>
-        </a>
-    </li>
-    <li class="menu-item {{ request()->is('admin/productnames') ? 'active' : '' }}">
-        <a href="{{ route('productnames.index') }}" class="menu-link">
-            <i class="menu-icon tf-icons bx bx-collection"></i>
-            <div data-i18n="Analytics">Maxsulot To'liq Nomi</div>
         </a>
     </li>
     <li class="menu-item {{ request()->is('admin/addproducts') ? 'active' : '' }}">
@@ -106,6 +116,20 @@
             <i class="menu-icon tf-icons bx bx-money"></i>
             <div data-i18n="Analytics">Kassa</div>
         </a>
+    </li>
+    <li class="menu-item" style="">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon tf-icons bx bx-layout"></i>
+            <div data-i18n="Layouts">Hisobotlar</div>
+        </a>
+        <ul class="menu-sub">
+            <li class="menu-item {{ request()->is('user/reports') ? 'active' : '' }}">
+                <a href="{{ route('reports.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bxs-report"></i>
+                    <div data-i18n="Analytics">Tovar Qoldiq</div>
+                </a>
+            </li>
+        </ul>
     </li>
 @endif
 

@@ -316,7 +316,7 @@
                                 document.write(new Date().getFullYear());
                             </script>
                             , made with ❤️ by
-                            <a href="#" target="_blank" class="footer-link fw-bolder">ILYOSBEK</a>
+                            <a href="https://t.me/ilyos_saydaliyev" target="_blank" class="footer-link fw-bolder">ILYOSBEK</a>
                         </div>
                     </div>
                 </footer>
@@ -354,6 +354,7 @@
 {{--<script src="{{ asset('../assets/js/datatable.js') }}"></script>--}}
 <script src="{{ asset('../assets/js/datatables-bootstrap5.js') }}"></script>
 <script src="{{ asset('../assets/js/basic.datatable.js') }}"></script>
+
 
 
 

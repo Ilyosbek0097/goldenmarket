@@ -45,8 +45,10 @@
                                                         <td>{{ $loop->iteration }}</td>
                                                         <td>{{ $type->name }}</td>
                                                         <td>{{ $type->branch_id == 0 ? 'Hamma Filiallarga Tegishli': $type->branch ->name }}</td>
-                                                        <td>
+                                                        <td class="text-center">
                                                             @if($type->check_status == 1)
+                                                                <span class="text-success"><i class="bx bx-check-circle"></i></span>
+                                                            @elseif($type->check_status == 2)
                                                                 <span class="text-success"><i class="bx bx-check-circle"></i></span>
                                                             @else
                                                             @endif

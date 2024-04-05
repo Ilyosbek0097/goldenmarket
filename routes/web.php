@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AddProductController;
 use App\Http\Controllers\AdminPayListController;
+use App\Http\Controllers\AdminReportController;
 use App\Http\Controllers\CashSaleController;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\CurrencyController;
@@ -51,7 +52,12 @@ Route::group(['middleware' => ['auth', 'user'], 'prefix' => 'user'], function ()
     Route::controller(ReportsController::class) ->group(function(){
         Route::get('/index', 'index')->name('reports.index');
         Route::get('/add_product_report', 'add_product_report')->name('reports.add_product_report');
+        Route::get('/export_add_product', 'export_add_product')->name('reports.export_add_product');
+        Route::get('/cash_sales_report', 'cash_sales_report')->name('reports.cash_sales_report');
+        Route::post('/pay_list_report', 'pay_list_report')->name('reports.pay_list_report');
     });
+
+
 
 });
 // Admin Route
@@ -77,6 +83,9 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function 
     Route::resource('adminpaylists', AdminPayListController::class);
     Route::post('/outputstore', [AdminPayListController::class, 'outputstore'])->name('adminpaylists.outputstore');
 
+    Route::controller(AdminReportController::class)->group( function() {
+        Route::get('/index', 'index')->name('adminreports.index');
+    });
 
 
 });

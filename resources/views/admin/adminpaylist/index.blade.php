@@ -40,7 +40,8 @@
                                                                 <th>Summa Turi</th>
                                                                 <th>Summa</th>
                                                                 <th>Turi</th>
-                                                                <th>Chiqim Sababi</th>
+                                                                <th>Filiali</th>
+                                                                <th>Sababi</th>
                                                                 <th>Izoxi</th>
                                                                 <th class="text-center">Amal</th>
                                                             </tr>
@@ -54,6 +55,9 @@
                                                                         <td> <span class="badge bg-{{ $pay->pay_type == 'naqd' ? 'success' : 'warning'  }}"> {{ $pay->pay_type }}</span></td>
                                                                         <td>{{ number_format($pay->pay_sum, 0, '.', ' ') }}</td>
                                                                         <td><span class="badge bg-label-{{ $pay->in_out_status == 1 ? 'success' : 'danger' }}">{{ $pay->in_out_status == 1 ? 'Kirim' : '' }}</span> </td>
+                                                                        <td>
+                                                                            {{  $pay->branch->name }}
+                                                                        </td>
                                                                         <td>{{ $pay->outputtype ? $pay->outputtype->name : 'Kirim Qilindi' }}</td>
                                                                         <td>{{ $pay->comment}}</td>
                                                                         <td class="text-center">

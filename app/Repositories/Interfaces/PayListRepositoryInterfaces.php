@@ -40,4 +40,9 @@ interface PayListRepositoryInterfaces
      */
     public function payTotal($status, $tip, $check_status);
 
+    /**
+     * @param $data
+     * @return mixed
+     */
+    public function pay_list_report($data);
 }

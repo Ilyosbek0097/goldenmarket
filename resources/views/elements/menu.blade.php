@@ -82,6 +82,21 @@
             <div data-i18n="Analytics">Chiqimlar Ro'yxati</div>
         </a>
     </li>
+
+    <li class="menu-item" style="">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class="menu-icon tf-icons bx bxs-report"></i>
+            <div data-i18n="Layouts">Hisobotlar</div>
+        </a>
+        <ul class="menu-sub">
+            <li class="menu-item {{ request()->is('admin/adminreports') ? 'active' : '' }}">
+                <a href="{{ route('adminreports.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bxs-report"></i>
+                    <div data-i18n="Analytics">Jami Savdo</div>
+                </a>
+            </li>
+        </ul>
+    </li>
 {{--    <li class="menu-item {{ request()->is('admin/teachers') ? 'active' : '' }}">--}}
 {{--        <a href="{{ route('teachers.index') }}" class="menu-link">--}}
 {{--            <i class="menu-icon tf-icons bx bxs-group"></i>--}}
@@ -117,20 +132,14 @@
             <div data-i18n="Analytics">Kassa</div>
         </a>
     </li>
-    <li class="menu-item" style="">
-        <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class="menu-icon tf-icons bx bx-layout"></i>
-            <div data-i18n="Layouts">Hisobotlar</div>
+
+    <li class="menu-item {{ request()->is('user/reports') ? 'active' : '' }}">
+        <a href="{{ route('reports.index') }}" class="menu-link">
+            <i class="menu-icon tf-icons bx bxs-report"></i>
+            <div data-i18n="Analytics">Hisobotlar</div>
         </a>
-        <ul class="menu-sub">
-            <li class="menu-item {{ request()->is('user/reports') ? 'active' : '' }}">
-                <a href="{{ route('reports.index') }}" class="menu-link">
-                    <i class="menu-icon tf-icons bx bxs-report"></i>
-                    <div data-i18n="Analytics">Tovar Qoldiq</div>
-                </a>
-            </li>
-        </ul>
     </li>
+
 @endif
 
 

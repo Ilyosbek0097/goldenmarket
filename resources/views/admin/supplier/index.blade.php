@@ -28,7 +28,7 @@
                                                     </div>
                                                 @endif
                                             </div>
-                                            <table class="table table-bordered datatable" id="supplierTable">
+                                            <table class="table table-stripped datatable" id="supplierTable">
                                                 <thead class="table-responsive-sm">
                                                 <tr>
                                                     <th>№</th>
@@ -43,9 +43,9 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody class="table-border-bottom-0">
-                                                @foreach($supplierAll as $index => $supplier)
+                                                @foreach($supplierAll as $supplier)
                                                     <tr>
-                                                        <td><strong>{{$index + $supplierAll->firstItem() }}</strong></td>
+                                                        <td><strong>{{ $loop->iteration }}</strong></td>
                                                         <td>{{ $supplier->full_name }}</td>
                                                         <td>{{ $supplier->address }}</td>
                                                         <td>{{ $supplier->phone1 }}</td>
@@ -56,15 +56,13 @@
                                                         <td>
                                                             <a class="btn btn-success btn-sm" href="{{ route('suppliers.show',$supplier->supplier_id ) }}"><i class="bx bx-show me-1"></i> Ko'rish</a>
                                                             <a class="btn btn-info btn-sm" href=" {{ route('suppliers.edit', $supplier->supplier_id) }}"><i class="bx bx-edit-alt me-1"></i> Tahrirlash</a>
-                                                            <button data-id="{{ $supplier->supplier_id }}" type="button" class="btn btn-danger btn-sm btnDelete" data-bs-toggle="modal" data-bs-target="#modalTop" ><i class="bx bx-trash me-1"></i> O'chirish</button>
+{{--                                                            <button data-id="{{ $supplier->supplier_id }}" type="button" class="btn btn-danger btn-sm btnDelete" data-bs-toggle="modal" data-bs-target="#modalTop" ><i class="bx bx-trash me-1"></i> O'chirish</button>--}}
                                                         </td>
                                                     </tr>
                                                 @endforeach
                                                 </tbody>
                                             </table>
-                                            <div class="pagination justify-content-end mt-3 mb-3">
-                                                {{ $supplierAll->links() }}
-                                            </div>
+
                                     </div>
                                 </div>
                             </div>

@@ -45,7 +45,7 @@
                                                         <td>
                                                             <a class="btn btn-success btn-sm" href="{{ route('types.show',$type->type_id ) }}"><i class="bx bx-show me-1"></i> Ko'rish</a>
                                                             <a class="btn btn-info btn-sm" href=" {{ route('types.edit', $type->type_id) }}"><i class="bx bx-edit-alt me-1"></i> Tahrirlash</a>
-                                                            <button data-id="{{ $type->type_id }}" type="button" class="btn btn-danger btn-sm btnDelete" data-bs-toggle="modal" data-bs-target="#modalTop" ><i class="bx bx-trash me-1"></i> O'chirish</button>
+{{--                                                            <button data-id="{{ $type->type_id }}" type="button" class="btn btn-danger btn-sm btnDelete" data-bs-toggle="modal" data-bs-target="#modalTop" ><i class="bx bx-trash me-1"></i> O'chirish</button>--}}
                                                         </td>
                                                     </tr>
                                                 @endforeach

@@ -32,8 +32,6 @@
                                     <option value="A">A -Tip</option>
                                     <option value="B">B -Tip</option>
                                     <option value="C">C -Tip</option>
-                                    <option value="D">D -Tip</option>
-                                    <option value="E">E -Tip</option>
                                 </select>
                                 @error('type')
                                 <div class="mt-2 text-danger" role="alert">
@@ -42,8 +40,8 @@
                                 @enderror
                             </div>
                             <div class="mb-3">
-                                <label class="form-label" for="value">Natsenka Qiymati</label>
-                                <input type="number" step="0.01" id="value" class="form-control @error('value') is-invalid @enderror" name="value"  placeholder="Natsenka Qiymatini Kiriting...">
+                                <label class="form-label" for="value">Natsenka Qiymati (%)</label>
+                                <input type="number" step="0.01" id="value" class="form-control @error('value') is-invalid @enderror" name="value"  placeholder="Natsenka Qiymatini Kiriting... Misol 10">
                                 @error('value')
                                 <div class="mt-2 text-danger" role="alert">
                                     {{ $message }}

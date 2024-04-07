@@ -14,7 +14,7 @@ class AdminPayListRepository implements AdminPayListRepositoryInterfaces
 
     public function all()
     {
-        return $this->adminPayList->all();
+        return $this->adminPayList->orderBy('created_at','DESC')->get();
     }
 
     public function get($id)

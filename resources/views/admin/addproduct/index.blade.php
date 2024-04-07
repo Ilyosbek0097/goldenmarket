@@ -39,8 +39,8 @@
                                             <thead class="table-light">
                                             <tr>
                                                 <th>№</th>
+                                                <th>Status</th>
                                                 <th>Kiritilgan Sana</th>
-                                                <th>Contragent</th>
                                                 <th>Filiali</th>
                                                 <th>Invoice Raqami</th>
                                                 <th>Maxsulot Nomi</th>
@@ -50,7 +50,7 @@
                                                 <th>Natsenkasi</th>
                                                 <th>Sotish Narxi</th>
                                                 <th>Kiritgan Xodim</th>
-                                                <th>Status</th>
+                                                <th>Contragent</th>
                                                 <th>Amallar</th>
                                             </tr>
                                             </thead>
@@ -58,8 +58,8 @@
                                                 @foreach($addProductAll as $index => $addproduct)
                                                     <tr>
                                                         <td>{{$loop->iteration}}</td>
+                                                        <td>@if($addproduct->check_status == 0) <span class="badge  bg-label-warning"><i class="bx bx-alarm"></i> </span>@elseif($addproduct->check_status == 2) <span class="badge  bg-label-danger"><i class="bx bx-x-circle"></i> </span> @else <span class="badge  bg-label-success"><i class="bx bx-check-circle"></i></span @endif</td>
                                                         <td>{{ \Carbon\Carbon::parse($addproduct->register_date)->format('d-M-Y')  }}</td>
-                                                        <td>{{ $addproduct->supplier->full_name }}</td>
                                                         <td>{{ $addproduct->branch->name }}</td>
                                                         <td> <span class="badge bg-primary">№ {{ $addproduct->invoice_order }}</span></td>
                                                         <td>{{ $addproduct->productname->type->type_name }} {{$addproduct->productname->brand->brand_name}} {{ $addproduct->productname->model_name  }}</td>
@@ -69,7 +69,7 @@
                                                         <td>{{ number_format($addproduct->mark->value, 2, '.', ' ') }} %</td>
                                                         <td>{{ number_format($addproduct->sales_price, 0, '.', ' ') }} UZS</td>
                                                         <td>{{ $addproduct->user->name }}</td>
-                                                        <td>@if($addproduct->check_status == 0) <span class="badge  bg-label-warning"><i class="bx bx-alarm"></i> </span>@elseif($addproduct->check_status == 2) <span class="badge  bg-label-danger"><i class="bx bx-x-circle"></i> </span> @else <span class="badge  bg-label-success"><i class="bx bx-check-circle"></i></span @endif</td>
+                                                        <td>{{ $addproduct->supplier->full_name }}</td>
 
                                                         @if($addproduct->check_status == 0)
                                                         <td>

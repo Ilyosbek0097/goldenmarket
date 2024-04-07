@@ -85,6 +85,13 @@ Route::group(['middleware' => ['auth', 'admin'], 'prefix' => 'admin'], function 
 
     Route::controller(AdminReportController::class)->group( function() {
         Route::get('/index', 'index')->name('adminreports.index');
+        Route::post('/cash_sale_report', 'cash_sale_report')->name('adminreports.cash_sale_report');
+        Route::get('/total_sale_report', 'total_sale_report')->name('adminreports.total_sale_report');
+        Route::post('/total_sale_filtr', 'total_sale_filtr')->name('adminreports.total_sale_filtr');
+        Route::get('/caller', 'caller')->name('adminreports.caller');
+        Route::post('/caller_report', 'caller_report')->name('adminreports.caller_reports');
+        Route::get('/usercash', 'usercash')->name('adminreports.usercash');
+        Route::post('/usercash_report', 'usercash_report')->name('adminreports.usercash_report');
     });
 
 

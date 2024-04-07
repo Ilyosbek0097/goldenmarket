@@ -120,7 +120,7 @@
                                                 <div class="mb-1">
                                                     <label class="form-label-sm" for="user_id">Kim Tomonidan Kelgan</label>
                                                     <select  class="form-control form-control-sm" name="user_id" id="user_id">
-                                                       <option value="0">--Xodimni Tanlang--</option>
+                                                       <option value="0">--Xodimni Tanlang Yoki Hech Kim Tomonidan--</option>
                                                         @if($userAll)
                                                             @foreach($userAll as $user)
                                                                 <option value="{{ $user->id }}">{{ $user->name }}</option>
@@ -212,8 +212,9 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Bekor Qilish</button>
-                            <button type="submit" id="btnSubmit" class="btn btn-primary">Saqlash</button>
+                            <button type="button" class="btn btn-outline-secondary close_btn" data-bs-dismiss="modal">Bekor Qilish</button>
+                            <input type="submit"  onclick="this.disabled=true;this.value='Iltimos kuting...';this.form.submit();" id="btnSubmit" class="btn btn-primary" value="Saqlash" >
+
                         </div>
                     </form>
                 </div>
@@ -249,6 +250,7 @@
 @section('script')
     <script>
         $(document).ready(function() {
+
             var diff_pay = $("#diff_pay").val();
 
             $("#customer_block").hide();

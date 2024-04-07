@@ -16,10 +16,14 @@ class TotalSale extends Model
     }
     public function client()
     {
-        return $this->belongsTo(Client::class, 'client_id');
+        return $this->belongsTo(Client::class, 'client_id', 'client_id');
     }
     public function branch()
     {
         return $this->belongsTo(Branch::class, 'branch_id');
+    }
+    public function caller()
+    {
+        return $this->belongsTo(User::class, 'caller_id', 'id');
     }
 }

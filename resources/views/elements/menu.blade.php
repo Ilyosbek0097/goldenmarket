@@ -92,7 +92,25 @@
             <li class="menu-item {{ request()->is('admin/adminreports') ? 'active' : '' }}">
                 <a href="{{ route('adminreports.index') }}" class="menu-link">
                     <i class="menu-icon tf-icons bx bxs-report"></i>
-                    <div data-i18n="Analytics">Jami Savdo</div>
+                    <div data-i18n="Analytics">Sotilgan Maxsulotlar</div>
+                </a>
+            </li>
+            <li class="menu-item {{ request()->is('admin/adminreports') ? 'active' : '' }}">
+                <a href="{{ route('adminreports.total_sale_report') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bxs-report"></i>
+                    <div data-i18n="Analytics">Savdo</div>
+                </a>
+            </li>
+            <li class="menu-item {{ request()->is('admin/adminreports') ? 'active' : '' }}">
+                <a href="{{ route('adminreports.caller') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bxs-user-detail"></i>
+                    <div data-i18n="Analytics">Sotuvchilar</div>
+                </a>
+            </li>
+            <li class="menu-item {{ request()->is('admin/adminreports') ? 'active' : '' }}">
+                <a href="{{ route('adminreports.usercash') }}" class="menu-link">
+                    <i class="menu-icon tf-icons bx bx-wallet"></i>
+                    <div data-i18n="Analytics">Filial Kassasi</div>
                 </a>
             </li>
         </ul>

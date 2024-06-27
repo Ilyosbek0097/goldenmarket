@@ -21,7 +21,7 @@
     <meta name="description" content=""/>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ URL::to('../assets/img/avatars/logo2.png') }}"/>
+    <link rel="icon" type="image/x-icon" href="{{ URL::to('../assets/img/avatars/logo5.png') }}"/>
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -107,8 +107,8 @@
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
             <div class="app-brand demo">
                 <a href="index.html" class="app-brand-link">
-                    <img src="{{ asset('../assets/img/avatars/logo2.png') }}">
-                    <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform: capitalize">Tillozor</span>
+                    <img src="{{ asset('../assets/img/avatars/logo6.png') }}">
+{{--                    <span class="app-brand-text demo menu-text fw-bolder ms-2" style="text-transform: capitalize">Tillozor</span>--}}
                 </a>
 
                 <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -150,16 +150,16 @@
                             />
 
                         </div>
-                        <div class="nav-item d-flex align-items-center ml-3" >
-                            <i class="bx bx-location-plus fs-4 lh-0"></i>
-                            <input id="branch_name"
-                                   type="text"
-                                   class="form-control border-0 shadow-none" readonly
-                                   value="Filiali: {{ auth()->user()->branch->name ?? '' }} "
-                                   aria-label="Search..."
-                            />
+{{--                        <div class="nav-item d-flex align-items-center ml-3" >--}}
+{{--                            <i class="bx bx-location-plus fs-4 lh-0"></i>--}}
+{{--                            <input id="branch_name"--}}
+{{--                                   type="text"--}}
+{{--                                   class="form-control border-0 shadow-none" readonly--}}
+{{--                                   value="Filiali: {{ auth()->user()->branch->name ?? '' }} "--}}
+{{--                                   aria-label="Search..."--}}
+{{--                            />--}}
 
-                        </div>
+{{--                        </div>--}}
 {{--                        <span class="badge bg-success">{{ auth()->user()->branch->name }} Filiali</span>--}}
 
                     </div>

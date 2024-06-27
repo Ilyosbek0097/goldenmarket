@@ -16,14 +16,14 @@
     />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'SIM SOFT') }}</title>
+    <title>{{ config('app.name', 'SIMSOFT') }}</title>
 {{--    <title>Login Basic</title>--}}
 
     <meta name="description" content="" />
 
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../assets/img/avatars/logo2.png" />
+    <link rel="icon" type="image/x-icon" href="../assets/img/avatars/logo5.png" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

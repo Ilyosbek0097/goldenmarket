@@ -3,8 +3,8 @@
     <!-- Logo -->
     <div class="app-brand justify-content-center">
         <a href="/" class="app-brand-link gap-2">
-            <img src="{{ asset('../assets/img/avatars/logo2.png') }}">
-            <span class="app-brand-text demo text-body fw-bolder text-capitalize" >Tillozor</span>
+            <img src="{{ asset('../assets/img/avatars/logo6.png') }}">
+{{--            <span class="app-brand-text demo text-body fw-bolder text-capitalize" >Tillozor</span>--}}
         </a>
     </div>
     <!-- /Logo -->
